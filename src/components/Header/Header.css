@@ -1,7 +1,6 @@
 .header{
   height: 74px;
-  width: 1280px;
-  padding: 0 70px 0 70px;
+  width: 1140px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -24,7 +23,7 @@
   cursor: pointer;
 }
 
-.header__button_green{
+.header__button_color_green{
   height: 32px;
   width: 76px;
   border-radius: 3px;

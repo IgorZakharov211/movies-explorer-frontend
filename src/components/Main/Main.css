@@ -1,8 +1,15 @@
 .main{
   width: 100%;
-  background: #073042;
 }
 
 .main__header{
   margin: 0 auto 0 auto;
+}
+
+.main__promo{
+  margin-top: -74px;
+}
+
+.main__about-project{
+  margin: 110px auto 110px auto;
 }

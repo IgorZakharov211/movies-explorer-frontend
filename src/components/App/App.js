@@ -7,6 +7,9 @@ import Main from '../Main/Main';
 function App() {
   return (
     <Switch>
+      <Route exact path="/">
+        <Main />
+      </Route>
       <Route path="/movies">
  
       </Route>
@@ -21,9 +24,6 @@ function App() {
       </Route>
       <Route path="/signup">
        
-      </Route>
-      <Route path="/">
-        <Main />
       </Route>
     </Switch>
   );

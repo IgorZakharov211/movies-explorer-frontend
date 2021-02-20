@@ -1,0 +1,51 @@
+.promo{
+  padding: 193px 0 75px 0;
+  background: #073042;
+}
+
+.promo__container{
+  margin: 0 auto 0 auto;
+  width: 1140px;
+  display: flex;
+  flex-direction: row;
+}
+
+.promo__text{
+  max-width: 640px;
+}
+
+.promo__title{
+  padding: 0;
+  margin: 0 0 36px 0;
+  font-weight: 400;
+  font-size: 50px;
+  line-height: 1.16;
+  color: #ffffff;
+}
+
+.promo__subtitle{
+  padding: 0;
+  margin: 0 0 156px 0;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 1.21;
+  color: #ffffff;
+  opacity: 0.5;
+}
+
+.promo__button{
+  width: 129px;
+  height: 36px;
+  opacity: 0.6;
+  border: 1px solid #FFFFFF;
+  background: none;
+  box-sizing: border-box;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 12px;
+  line-height: 1.33;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+
