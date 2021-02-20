@@ -2,30 +2,35 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import Main from '../Main/Main';
-
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 function App() {
   return (
-    <Switch>
-      <Route exact path="/">
-        <Main />
-      </Route>
-      <Route path="/movies">
+    <div className="page">
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <Main />
+        </Route>
+        <Route path="/movies">
  
-      </Route>
-      <Route path="/saved-movies">
+        </Route>
+        <Route path="/saved-movies">
         
-      </Route>
-      <Route path="/profile">
+        </Route>
+        <Route path="/profile">
         
-      </Route>
-      <Route path="/signin">
-        <h2>hey</h2>
-      </Route>
-      <Route path="/signup">
+        </Route>
+        <Route path="/signin">
+          <h2>hey</h2>
+        </Route>
+        <Route path="/signup">
        
-      </Route>
-    </Switch>
+        </Route>
+      </Switch>
+      <Footer />
+    </div>
   );
 }
 
