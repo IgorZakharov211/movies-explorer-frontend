@@ -4,6 +4,7 @@ import './App.css';
 import Main from '../Main/Main';
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies';
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           <Main />
         </Route>
         <Route path="/movies">
- 
+          <Movies />
         </Route>
         <Route path="/saved-movies">
         

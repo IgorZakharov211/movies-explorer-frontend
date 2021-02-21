@@ -12,22 +12,3 @@
   height: 38px;
 }
 
-.header__button{
-  border: none;
-  background: none;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33;
-  margin-right: 30px;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.header__button_color_green{
-  height: 32px;
-  width: 76px;
-  border-radius: 3px;
-  background-color: #2BE080;
-  color: #000000;
-  margin-right: 0;
-}
