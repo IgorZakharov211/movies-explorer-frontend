@@ -20,6 +20,11 @@ function NavTab() {
           <NavLink to="/saved-movies" className="nav-tab__nav-link" activeClassName="nav-tab__nav-link_active">Сохраненные фильмы</NavLink>
           <Link to="/profile"><button className="nav-tab__profile"><p className="nav-tab__profile-text">Аккаунт</p></button></Link>
         </Route>
+        <Route path="/profile">
+          <NavLink to="/movies" className="nav-tab__nav-link" activeClassName="nav-tab__nav-link_active">Фильмы</NavLink>
+          <NavLink to="/saved-movies" className="nav-tab__nav-link" activeClassName="nav-tab__nav-link_active">Сохраненные фильмы</NavLink>
+          <Link to="/profile"><button className="nav-tab__profile"><p className="nav-tab__profile-text">Аккаунт</p></button></Link>
+        </Route>
       </Switch>
     </nav>
   )
