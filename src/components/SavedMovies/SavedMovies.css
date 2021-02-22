@@ -5,3 +5,7 @@
 .saved-movies__search-form{
   margin: 70px auto 70px auto;
 }
+
+.saved-movies__movies-card-list{
+  margin: 0 auto 80px auto;
+}

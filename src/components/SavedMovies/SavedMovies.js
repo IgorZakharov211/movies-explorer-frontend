@@ -8,7 +8,7 @@ function SavedMovies(){
   return(
     <main className="saved-movies">
       <SearchForm whereOpen={'saved-movies'}/>
-      <MoviesCardList />
+      <MoviesCardList whereOpen={'saved-movies'}/>
     </main>
   )
 }

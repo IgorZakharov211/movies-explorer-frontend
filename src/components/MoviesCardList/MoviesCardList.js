@@ -19,9 +19,9 @@ import card14 from '../../images/movies-cards/card14.jpg';
 import card15 from '../../images/movies-cards/card15.jpg';
 import card16 from '../../images/movies-cards/card16.jpg';
 
-function MoviesCardList(){
+function MoviesCardList(props){
   return(
-    <section className="movies-card-list movies__movies-card-list">
+    <section className={`movies-card-list ${props.whereOpen}__movies-card-list`}>
         <Switch>
           <Route path="/movies">
             <div className="movies-card-list__container">

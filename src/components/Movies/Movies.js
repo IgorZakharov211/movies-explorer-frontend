@@ -7,7 +7,7 @@ function Movies(){
   return(
     <main className="movies">
       <SearchForm whereOpen={'movies'}/>
-      <MoviesCardList />
+      <MoviesCardList whereOpen={'movies'}/>
     </main>
   )
 }
