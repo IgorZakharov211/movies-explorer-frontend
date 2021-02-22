@@ -66,3 +66,13 @@
 .movies-card__input:checked + .movies-card__switch:before {
   background-color: #2BE080;
 }
+
+.movies-card__remove{
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: none;
+  outline: none;
+  background-image: url('../../images/movies-card-remove.svg');
+  cursor: pointer;
+}

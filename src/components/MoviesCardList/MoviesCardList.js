@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import card1 from '../../images/movies-cards/card1.jpg';
@@ -21,25 +22,36 @@ import card16 from '../../images/movies-cards/card16.jpg';
 function MoviesCardList(){
   return(
     <section className="movies-card-list movies__movies-card-list">
-      <div className="movies-card-list__container">
-        <MoviesCard image={card1} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card2} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card3} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card4} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card5} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card6} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card7} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card8} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card9} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card10} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card11} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card12} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card13} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card14} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card15} name="33 слова о дизайне" duration="1ч42м"/>
-        <MoviesCard image={card16} name="33 слова о дизайне" duration="1ч42м"/>
-      </div>
-      <button className="movies-card-list__more" type="button">Ещё</button>
+        <Switch>
+          <Route path="/movies">
+            <div className="movies-card-list__container">
+              <MoviesCard image={card1} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card2} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card3} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card4} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card5} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card6} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card7} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card8} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card9} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card10} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card11} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card12} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card13} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card14} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card15} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card16} name="33 слова о дизайне" duration="1ч42м"/>
+            </div>
+            <button className="movies-card-list__more" type="button">Ещё</button>
+          </Route>
+          <Route path="/saved-movies">
+            <div className="movies-card-list__container">
+              <MoviesCard image={card1} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card2} name="33 слова о дизайне" duration="1ч42м"/>
+              <MoviesCard image={card3} name="33 слова о дизайне" duration="1ч42м"/>
+            </div>
+          </Route>
+        </Switch>
     </section>
   )
 }
