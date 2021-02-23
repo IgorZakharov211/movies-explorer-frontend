@@ -66,3 +66,18 @@
   height: 12px;
   margin: 2px 7px 0 0;
 }
+
+@media screen and (max-width: 580px){
+  .nav-tab__link{
+    font-size: 10px;
+    line-height: 1.6;
+    margin-right: 14px;
+  }  
+
+  .nav-tab__button{
+    height: 26px;
+    width: 54px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}

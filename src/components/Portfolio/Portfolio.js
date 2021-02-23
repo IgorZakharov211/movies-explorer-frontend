@@ -9,19 +9,19 @@ function Portfolio() {
         <li className="portfolio__item">
           <a className="portfolio__link" href="#">
           Статичный сайт(добавь!)
-            <div className="portfolio__arrow"></div>
+            <p className="portfolio__arrow">↗</p>
           </a>
         </li>
         <li className="portfolio__item">
           <a className="portfolio__link" href="#">
           Адаптивный сайт(добавь!)
-            <div className="portfolio__arrow"></div>
+            <p className="portfolio__arrow">↗</p>
           </a>
         </li>
         <li className="portfolio__item">
           <a className="portfolio__link" href="#">
           Одностраничное приложение(добавь!)
-            <div className="portfolio__arrow"></div>
+            <p className="portfolio__arrow">↗</p>
           </a>
         </li>
       </ul>

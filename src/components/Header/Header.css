@@ -12,3 +12,15 @@
   height: 38px;
 }
 
+@media screen and (max-width: 1200px){
+  .header{
+    width: calc(100% - 60px);
+  }
+}
+
+@media screen and (max-width: 580px){
+  .header{
+    width: calc(100% - 28px);
+  }
+}
+
