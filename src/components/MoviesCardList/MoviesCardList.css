@@ -27,3 +27,56 @@
   outline: none;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1200px){
+  .movies-card-list{
+    width: calc(100% - 60px);
+  }
+
+  .movies-card-list__container{
+    width: 1057px;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (max-width: 1100px){
+  .movies-card-list__container{
+    width: 850px;
+  }
+}
+
+@media screen and (max-width: 906px){
+  .movies-card-list__container{
+    width: 708px;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 30px;
+    grid-row-gap: 36px;
+  }
+}
+
+@media screen and (max-width: 760px){
+  .movies-card-list__container{
+    width: 570px;
+  }
+}
+
+@media screen and (max-width: 610px){
+  .movies-card-list__container{
+    width: 339px;
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 425px){
+  .movies-card-list{
+    width: calc(100% - 20px);
+  }
+
+  .movies-card-list__container{
+    width: 100%;
+    grid-template-columns: repeat(1, 1fr);
+    grid-row-gap: 20px;
+  }
+}
+
+
