@@ -14,8 +14,10 @@ function Profile(props){
           <label className="profile__label">Почта</label>
           <input className="profile__input" defaultValue="Igor1994294@yandex.ru" placeholder="Почта"></input>
         </fieldset>
-        <button className="profile__button" type="submit">Редактировать</button>
-        <button className="profile__button profile__button_color_red" type="button">Выйти из аккаунта</button>
+        <div className="profile__button-box">
+          <button className="profile__button" type="submit">Редактировать</button>
+          <button className="profile__button profile__button_color_red" type="button">Выйти из аккаунта</button>
+        </div>
       </form>
     </main>
   )

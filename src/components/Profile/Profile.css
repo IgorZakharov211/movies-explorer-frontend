@@ -54,6 +54,11 @@
   text-align: end;
 }
 
+.profile__button-box{
+  display: flex;
+  flex-direction: column;
+}
+
 .profile__button{
   margin: 0 0 16px 0;
   padding: 0;
@@ -69,6 +74,54 @@
   color: #FF3055;
   font-weight: 500;
 }
+
+@media screen and (max-width: 800px){
+  .profile{
+    width: 100%;
+    height: calc(100% - 74px);
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__form{
+    width: 410px;
+    margin: 0;
+  }
+
+  .profile__title{
+    margin: 0 0 96px 0;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .profile{
+    align-items: flex-start;
+  }
+
+  .profile__form{
+    width: calc(100% - 60px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .profile__title{
+    margin: 70px 0 80px 0;
+  }
+
+  .profile__button-box{
+    position: absolute;
+    left: calc(50% - 55.82px);
+    justify-content: center;
+    align-items: center;
+    bottom: 24px;
+  }
+}
+
+
 
 
 
