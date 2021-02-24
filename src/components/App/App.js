@@ -9,10 +9,22 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Popup from '../Popup/Popup';
 
 function App() {
+  const [isNavOpen, setNavOpen] = React.useState(false);
+
+  function handleNavOpen(){
+    setNavOpen(true);
+  }
+
+  function closeAllPopups(){
+    setNavOpen(false);
+  }
+
   return (
     <div className="page">
+      <Popup isOpen={isNavOpen} onClose={closeAllPopups}/>
       <Switch>
         <Route exact path="/">
           <Header />
@@ -20,17 +32,17 @@ function App() {
           <Footer />
         </Route>
         <Route path="/movies">
-          <Header />
+          <Header onBurgerButton = {handleNavOpen}/>
           <Movies />
           <Footer />
         </Route>
         <Route path="/saved-movies">
-          <Header />
+          <Header onBurgerButton = {handleNavOpen}/>
           <SavedMovies />
           <Footer />
         </Route>
         <Route path="/profile">
-          <Header />
+          <Header onBurgerButton = {handleNavOpen}/>
           <Profile />
         </Route>
         <Route path="/signin">

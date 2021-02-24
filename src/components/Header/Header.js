@@ -5,11 +5,11 @@ import headerLogo from '../../images/logo.svg';
 import NavTab from '../NavTab/NavTab';
 
 
-function Header() {
+function Header(props) {
   return (
     <header className="header main__header">
       <Link to="/"><img src={headerLogo} alt="Логотип" className="header__logo" /></Link>
-      <NavTab />
+      <NavTab onBurgerButton={props.onBurgerButton}/>
     </header>
   );
 }
