@@ -10,6 +10,7 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Popup from '../Popup/Popup';
+import NotFound from '../NotFound/NotFound';
 
 function App() {
   const [isNavOpen, setNavOpen] = React.useState(false);
@@ -27,9 +28,7 @@ function App() {
       <Popup isOpen={isNavOpen} onClose={closeAllPopups}/>
       <Switch>
         <Route exact path="/">
-          <Header />
-          <Main />
-          <Footer />
+          <NotFound />
         </Route>
         <Route path="/movies">
           <Header onBurgerButton = {handleNavOpen}/>
