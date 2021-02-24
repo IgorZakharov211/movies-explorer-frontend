@@ -27,10 +27,12 @@ function Form(){
           defaultInputValue="111" 
           inputType="password"
           incorrect={true}/>
-          <button className="form__button" type="submit">Зарегистрироваться</button>
-          <div className="form__text">
-            <p className="form__subtitle">Уже зарегистрированы?</p>
-            <Link to="signin" className="form__link">Войти</Link>
+          <div className="form__button-box">
+            <button className="form__button" type="submit">Зарегистрироваться</button>
+            <div className="form__text">
+              <p className="form__subtitle">Уже зарегистрированы?</p>
+              <Link to="signin" className="form__link">Войти</Link>
+            </div>
           </div> 
         </Route>
         <Route path="/signin">
@@ -45,11 +47,13 @@ function Form(){
           labelValue="Пароль" 
           defaultInputValue="" 
           inputType="password"/>
-          <button className="form__button form__button_margin_large" type="submit">Войти</button>
-          <div className="form__text">
-            <p className="form__subtitle">Ещё не зарегистрированы?</p>
-            <Link to="signup" className="form__link">Регистрация</Link>
-          </div> 
+          <div className="form__button-box">
+            <button className="form__button form__button_margin_large" type="submit">Войти</button>
+            <div className="form__text">
+              <p className="form__subtitle">Ещё не зарегистрированы?</p>
+              <Link to="signup" className="form__link">Регистрация</Link>
+            </div> 
+          </div>
         </Route>
       </Switch>
     </form>

@@ -68,3 +68,53 @@
   outline: none;
   cursor: pointer;
 }
+
+@media screen and (max-width: 800px){
+  .form{
+    justify-content: center;
+  }
+
+  .form__logo-img{
+    margin: 0 0 40px 0;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .form{
+    justify-content: flex-start;
+    align-items: center;
+    width: calc(100% - 60px);
+  }
+
+  .form__logo-img{
+    margin: 56px 0 50px 0;
+  }
+
+  .form__title{
+    margin: 0 0 80px 0;
+  }
+
+  .form__button-box{
+    width: calc(100% - 60px);
+    position: absolute;
+    bottom: 30px;
+  }
+
+  .form__button{
+    font-size: 12px;
+    line-height: 1.25;
+    margin: 0 0 14px 0;
+  }
+
+  .form__subtitle{
+    font-size: 12px;
+    line-height: 1.25;
+    margin: 0 7px 0 0;
+  }
+
+  .form__link{
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
+
