@@ -1,15 +1,29 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import './Header.css';
 import headerLogo from '../../images/logo.svg';
 import NavTab from '../NavTab/NavTab';
+import Navigation from '../Navigation/Navigation';
 
 
 function Header(props) {
   return (
     <header className="header main__header">
       <Link to="/"><img src={headerLogo} alt="Логотип" className="header__logo" /></Link>
-      <NavTab onBurgerButton={props.onBurgerButton}/>
+      <Switch>
+        <Route exact path="/">
+          <NavTab />
+        </Route>
+        <Route path="/movies">
+          <Navigation onBurgerButton={props.onBurgerButton} />
+        </Route>
+        <Route path="/saved-movies">
+          <Navigation onBurgerButton={props.onBurgerButton} />
+        </Route>
+        <Route path="/profile">
+          <Navigation onBurgerButton={props.onBurgerButton} />
+        </Route>
+      </Switch>
     </header>
   );
 }

@@ -1,0 +1,85 @@
+.navigation__nav-link{
+  border: none;
+  background: none;
+  margin-right: 30px;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+  color: #000000;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.29;
+}
+
+.navigation__nav-link_active{
+  font-weight: 500;
+}
+
+.navigation__profile{
+  width: 100px;
+  height: 32px;
+  border: 2px solid rgba(170, 170, 170, .2);
+  box-sizing: border-box;
+  border-radius: 50px;
+  background: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.navigation__profile-text{
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.14;
+  font-weight: 500;
+}
+
+.navigation__profile-text::before{
+  content: url('../../images/nav-tab-icon.svg');
+  width: 12px;
+  height: 12px;
+  margin: 2px 7px 0 0;
+}
+
+.navigation__burger{
+  display: none;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  background-image: url('../../images/nav-tab-burger.svg');
+  background-size: contain;
+  cursor: pointer;
+  outline: none;
+}
+
+
+@media screen and (max-width: 800px){
+  .navigation__desktop{
+    display: none;
+  }
+
+  .navigation__burger{
+    display: block;
+  }
+}
+
+@media screen and (max-width: 580px){
+  .navigation__link{
+    font-size: 10px;
+    line-height: 1.6;
+    margin-right: 14px;
+  }  
+
+  .navigation__button{
+    height: 26px;
+    width: 54px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+
+  .navigation__burger{
+    width: 40px;
+    height: 40px;
+  }
+}
