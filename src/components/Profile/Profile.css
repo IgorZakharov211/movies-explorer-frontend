@@ -1,0 +1,135 @@
+.profile{
+  width: 100%;
+}
+
+.profile__form{
+  width: 410px;
+  margin: 74px auto 0 auto;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__title{
+  margin: 0 0 123px 0;
+  padding: 0;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.21;
+  text-align: center;
+}
+
+.profile__fieldset{
+  margin: 0;
+  padding: 0 0 16px 0;
+  width: 100%;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  border-bottom: .5px solid #E8E8E8;
+}
+
+.profile__fieldset:last-of-type{
+  border: none;
+  margin: 0 0 220px 0;
+  padding: 16px 0 0 0;
+}
+
+.profile__label{
+  margin: 0 0 -10px 0;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.18;
+}
+
+.profile__input{
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.18;
+  background: none;
+  text-align: end;
+}
+
+.profile__button-box{
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__button{
+  margin: 0 0 16px 0;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.23;
+  border: none;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  transition: opacity .3s ease-in;
+}
+
+.profile__button:hover{
+  opacity: .6;
+}
+
+.profile__button_color_red{
+  color: #FF3055;
+  font-weight: 500;
+}
+
+@media screen and (max-width: 800px){
+  .profile{
+    width: 100%;
+    height: calc(100% - 74px);
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .profile__form{
+    width: 410px;
+    margin: 0;
+  }
+
+  .profile__title{
+    margin: 0 0 96px 0;
+  }
+}
+
+@media screen and (max-width: 425px){
+  .profile{
+    align-items: flex-start;
+  }
+
+  .profile__form{
+    width: calc(100% - 60px);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  .profile__title{
+    margin: 70px 0 80px 0;
+  }
+
+  .profile__button-box{
+    position: absolute;
+    left: calc(50% - 55.82px);
+    justify-content: center;
+    align-items: center;
+    bottom: 24px;
+  }
+}
+
+
+
+
+
+
+

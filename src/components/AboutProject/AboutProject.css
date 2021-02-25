@@ -1,0 +1,156 @@
+.about-project{
+  width: 1140px;
+}
+
+.about-project__title{
+  margin: 0 0 70px 0;
+  padding: 0 0 23px 0;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.21;
+  border-bottom: 1px solid;
+}
+
+.about-project__column{
+  width: 550px;
+}
+
+.about-project__title_size_small{
+  border: none;
+  padding: 0;
+  margin: 0 0 26px 0;
+  font-size: 20px;
+}
+
+.about-project__text{
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 110px;
+  justify-content: space-between;
+}
+
+.about-project__subtitle{
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.43;
+}
+
+.about-project__bar{
+  display: flex;
+  flex-direction: row;
+}
+
+.about-project__column-bar{
+  width: 228px;
+}
+
+.about-project__column-bar:last-of-type{
+  width: 912px;
+}
+
+.about-project__weak{
+  background: #F2F2F2;
+  height: 36px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.21;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+}
+
+.about-project__weak_color_green{
+  background: #2BE080;
+}
+
+.about-project__weak-descript{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.21;
+  font-weight: 400;
+  color: #A0A0A0;
+}
+
+@media screen and (max-width: 1200px){
+  .about-project{
+    width: calc(100% - 100px);
+  }
+
+  .about-project__column{
+    margin-right: 30px;
+  }
+
+  .about-project__column:last-child{
+    margin-right: 0;
+  }
+
+  .about-project__title_size_small{
+    margin: 0 0 22px 0;
+  }
+
+  .about-project__text{
+    margin-bottom: 93px;
+  }
+
+  .about-project__subtitle{
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+
+@media screen and (max-width: 580px){
+  .about-project{
+    width: calc(100% - 36px);
+  }
+  
+  .about-project__title{
+    margin: 0 0 60px 0;
+    padding: 0 0 28px 0;
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .about-project__text{
+    flex-direction: column;
+    margin:0;
+  }
+
+  .about-project__title_size_small{
+    padding: 0;
+    margin: 0 0 16px 0;
+    font-size: 18px;
+    line-height: 1.22;
+  }
+
+  .about-project__column{
+    width: 100%;
+    margin: 0 0 60px 0;
+  }
+
+  .about-project__subtitle{
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .about-project__weak{
+    height: 35px;
+    font-size: 11px;
+    line-height: 1.18;
+    margin-bottom: 10px;
+  }
+
+  .about-project__weak-descript{
+    font-size: 11px;
+    line-height: 1.18;
+  }
+}
+
+
+

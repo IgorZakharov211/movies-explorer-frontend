@@ -1,0 +1,52 @@
+.main{
+  width: 100%;
+}
+
+.main__header{
+  margin: 0 auto 0 auto;
+}
+
+.main__promo{
+  margin-top: -74px;
+}
+
+.main__about-project{
+  margin: 110px auto 110px auto;
+}
+
+.main__about-me{
+  margin: 110px auto 100px auto;
+}
+
+.main__portfolio{
+  margin: 0 auto 125px auto;
+}
+
+@media screen and (max-width: 1200px){
+  .main__about-project{
+    margin: 90px auto 90px auto;
+  }
+
+  .main__about-me{
+    margin: 90px auto 90px auto;
+  }
+
+  .main__portfolio{
+    margin: 0 auto 90px auto;
+  }
+
+}
+
+@media screen and (max-width: 580px){
+  .main__about-project{
+    margin: 70px auto 70px auto;
+  }
+
+  .main__about-me{
+    margin: 70px auto 70px auto;
+  }
+
+  .main__portfolio{
+    margin: 0 auto 70px auto;
+  }
+}

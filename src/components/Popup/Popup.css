@@ -1,0 +1,135 @@
+.popup{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .3);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility .5s, opacity .5s linear;
+}
+
+.popup_opened{
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup__container{
+  right: 0;
+  height: 100%;
+  width: 520px;
+  background-color: #ffffff;
+  position: fixed;
+}
+
+.popup__close{
+  width: 22px;
+  height: 22px;
+  background: none;
+  border: none;
+  background-image: url('../../images/popup-close.svg');
+  background-position: center;
+  background-size: 28px;
+  cursor: pointer;
+  position: fixed;
+  top: 22.4px;
+  left: calc(100% - 44.4px);
+  outline: none;
+}
+
+.popup__nav{
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popup__links{
+  margin: 159px 0 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup__link{
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.22;
+  color: #000000;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+  margin: 0 0 24px 0;
+  padding: 0 0 4px 0;
+  transition: opacity .3s ease-in;
+}
+
+.popup__link_active{
+  border-bottom: 2px solid #000000;
+}
+
+.popup__link:hover{
+  opacity: .6;
+}
+
+.popup__profile{
+  width: 100px;
+  height: 32px;
+  border: 2px solid rgba(170, 170, 170, .2);
+  box-sizing: border-box;
+  border-radius: 50px;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  margin: 0 0 90px 0;
+  transition: opacity .3s ease-in;
+}
+
+.popup__profile:hover{
+  opacity: .6;
+}
+
+.popup__profile-text{
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  line-height: 1.14;
+  font-weight: 500;
+}
+
+.popup__profile-text::before{
+  content: url('../../images/nav-tab-icon.svg');
+  width: 12px;
+  height: 12px;
+  margin: 2px 7px 0 0;
+}
+
+@media screen and (min-width: 800px){
+  .popup_opened{
+    visibility: hidden;
+    opacity: 0;
+  }  
+}
+
+@media screen and (max-width: 520px){
+  .popup__container{
+    width: 100%;
+  }
+}
