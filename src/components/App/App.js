@@ -52,7 +52,7 @@ function App() {
         <Route path="/signup">
           <Register />
         </Route>
-        <Route path="/*">
+        <Route path="*">
           <NotFound />
         </Route>
       </Switch>
