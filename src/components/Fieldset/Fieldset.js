@@ -13,7 +13,8 @@ function Fieldset(props){
       className={`fieldset__input ${inputRed}`}
       name={props.labelName}
       defaultValue={props.defaultInputValue}
-      type={props.inputType}>
+      type={props.inputType}
+      required>
       </input>
       <span className={`fieldset__span ${showSpan}`}>Что-то пошло не так...</span>
     </fieldset>
