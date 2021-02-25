@@ -78,10 +78,15 @@
   outline: none;
   margin: 0 0 24px 0;
   padding: 0 0 4px 0;
+  transition: opacity .3s ease-in;
 }
 
 .popup__link_active{
   border-bottom: 2px solid #000000;
+}
+
+.popup__link:hover{
+  opacity: .6;
 }
 
 .popup__profile{
@@ -94,6 +99,11 @@
   cursor: pointer;
   outline: none;
   margin: 0 0 90px 0;
+  transition: opacity .3s ease-in;
+}
+
+.popup__profile:hover{
+  opacity: .6;
 }
 
 .popup__profile-text{

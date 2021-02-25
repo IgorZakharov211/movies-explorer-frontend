@@ -26,6 +26,11 @@
   border: none;
   outline: none;
   cursor: pointer;
+  transition: opacity .3s ease-in;
+}
+
+.movies-card-list__more:hover{
+  opacity: .6;
 }
 
 @media screen and (max-width: 1200px){

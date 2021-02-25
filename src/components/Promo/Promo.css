@@ -47,6 +47,12 @@
   line-height: 1.33;
   font-weight: 500;
   cursor: pointer;
+  transition: color .3s ease-in, border .3s ease-in;
+}
+
+.promo__button:hover{
+  border: 1px solid rgba(255, 255, 255, .6);
+  color: rgba(255, 255, 255, .6);
 }
 
 .promo__image{

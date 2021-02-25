@@ -24,11 +24,13 @@ function App() {
   }
 
   return (
-    <div className="page">
+    <div className="app-page">
       <Popup isOpen={isNavOpen} onClose={closeAllPopups}/>
       <Switch>
         <Route exact path="/">
-          <NotFound />
+          <Header />
+          <Main />
+          <Footer />
         </Route>
         <Route path="/movies">
           <Header onBurgerButton = {handleNavOpen}/>
@@ -49,6 +51,9 @@ function App() {
         </Route>
         <Route path="/signup">
           <Register />
+        </Route>
+        <Route path="/*">
+          <NotFound />
         </Route>
       </Switch>
     </div>

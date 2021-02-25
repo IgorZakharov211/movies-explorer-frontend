@@ -55,6 +55,11 @@
   text-decoration: none;
   color: #000000;
   cursor: pointer;
+  transition: color .3s ease-in;
+}
+
+.footer__link:hover{
+  color: rgba(0, 0, 0, .6);
 }
 
 .footer__item:last-child{

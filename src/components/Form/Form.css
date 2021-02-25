@@ -33,6 +33,11 @@
   border: none;
   outline: none;
   margin: 69px 0 16px 0;
+  transition: color .3s ease-in;
+}
+
+.form__button:hover{
+  color: rgba(255, 255, 255, .6);
 }
 
 .form__button_margin_large{
@@ -67,6 +72,11 @@
   text-decoration: none;
   outline: none;
   cursor: pointer;
+  transition: opacity .3s ease-in;
+}
+
+.form__link:hover{
+  opacity: .6;
 }
 
 @media screen and (max-width: 800px){

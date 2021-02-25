@@ -68,6 +68,12 @@
   border: none;
   background: none;
   cursor: pointer;
+  outline: none;
+  transition: opacity .3s ease-in;
+}
+
+.profile__button:hover{
+  opacity: .6;
 }
 
 .profile__button_color_red{

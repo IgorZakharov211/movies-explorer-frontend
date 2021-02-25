@@ -56,6 +56,11 @@
   color: #ffffff;
   align-self: center;
   cursor: pointer;
+  transition: color .3s ease-in;
+}
+
+.search-form__button:hover{
+  color: rgba(255, 255, 255, .6);
 }
 
 .search-form__checkbox-subtitle{
