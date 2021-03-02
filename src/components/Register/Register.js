@@ -13,9 +13,14 @@ function Register(props){
   const handleEmailChange = event => setEmail(event.target.value);
   const handlePasswordChange = event => setPassword(event.target.value);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onRegister(name, email, password);
+  }
+
   return(
     <main className="register">
-      <form className="register__form">
+      <form className="register__form" action="#" method="POST" name="register" onSubmit={handleSubmit}>
         <Link to="/"><img className="register__logo-img" src={logo} alt="Логотип"></img></Link>
         <h2 className="register__title">Добро пожаловать!</h2>
         <fieldset className="register__fieldset">
