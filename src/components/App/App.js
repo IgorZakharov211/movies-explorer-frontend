@@ -11,9 +11,11 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import Popup from '../Popup/Popup';
 import NotFound from '../NotFound/NotFound';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [isNavOpen, setNavOpen] = React.useState(false);
+  const [isLoggedIn, setLoggedIn] = React.useState(false);
 
   function handleNavOpen(){
     setNavOpen(true);
@@ -32,26 +34,30 @@ function App() {
           <Main />
           <Footer />
         </Route>
-        <Route path="/movies">
-          <Header onBurgerButton = {handleNavOpen}/>
-          <Movies />
-          <Footer />
-        </Route>
-        <Route path="/saved-movies">
-          <Header onBurgerButton = {handleNavOpen}/>
-          <SavedMovies />
-          <Footer />
-        </Route>
-        <Route path="/profile">
-          <Header onBurgerButton = {handleNavOpen}/>
-          <Profile />
-        </Route>
         <Route path="/signin">
           <Login />
         </Route>
         <Route path="/signup">
           <Register />
         </Route>
+        <ProtectedRoute
+        path="/movies"
+        loggedIn={isLoggedIn}
+        onBurgerButton = {handleNavOpen}
+        component={Movies}
+        />
+        <ProtectedRoute
+        path="/saved-movies"
+        loggedIn={isLoggedIn}
+        onBurgerButton = {handleNavOpen}
+        component={SavedMovies}
+        />
+        <ProtectedRoute
+        path="/profile"
+        loggedIn={isLoggedIn}
+        onBurgerButton = {handleNavOpen}
+        component={Profile}
+        />
         <Route path="*">
           <NotFound />
         </Route>

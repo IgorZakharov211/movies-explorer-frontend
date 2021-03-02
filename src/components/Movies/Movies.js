@@ -2,13 +2,19 @@ import React from 'react';
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
-function Movies(){
+function Movies(props){
   return(
-    <main className="movies">
-      <SearchForm whereOpen={'movies'}/>
-      <MoviesCardList whereOpen={'movies'}/>
-    </main>
+    <div>
+      <Header onBurgerButton = {props.onBurgerButton}/>
+      <main className="movies">
+        <SearchForm whereOpen={'movies'}/>
+        <MoviesCardList whereOpen={'movies'}/>
+      </main>
+      <Footer />
+    </div>
   )
 }
 
