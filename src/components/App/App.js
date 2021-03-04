@@ -88,7 +88,7 @@ function App() {
         <Popup isOpen={isNavOpen} onClose={closeAllPopups}/>
         <Switch>
           <Route exact path="/">
-            <Header />
+            <Header isLoggedIn={isLoggedIn}/>
             <Main />
             <Footer />
           </Route>
