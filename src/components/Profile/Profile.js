@@ -42,7 +42,7 @@ function Profile(props){
           </fieldset>
           <div className="profile__button-box">
             <button className="profile__button" type="submit">Редактировать</button>
-            <button className="profile__button profile__button_color_red" type="button">Выйти из аккаунта</button>
+            <button className="profile__button profile__button_color_red" type="button" onClick={props.sighOut}>Выйти из аккаунта</button>
           </div>
         </form>
       </main>

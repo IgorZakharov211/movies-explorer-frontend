@@ -28,7 +28,7 @@ function App() {
         const { _id, name, email } = res.data;
         setCurrentUser({ _id: _id, name: name, email: email, token: jwt })
         setLoggedIn(true);
-        history.push('/movies');
+        history.push('/');
       })
       .catch((err) => console.log(err));
     }
@@ -65,7 +65,7 @@ function App() {
         if(res.token){
           localStorage.setItem('token', res.token);
           setLoggedIn(true);
-          history.push('/movies');
+          history.push('/');
         }
       })
       .catch((err)=> {console.log(err)})
@@ -80,6 +80,13 @@ function App() {
       .catch((err) =>{
         console.log(err);
       });
+    }
+
+    function handleSignOut(){
+      localStorage.removeItem('token');
+      setCurrentUser({_id: '', name: '', email: '', token: ''});
+      history.push('/');
+      setLoggedIn(false);
     }
 
   return (
@@ -116,6 +123,7 @@ function App() {
           onBurgerButton = {handleNavOpen}
           component={Profile}
           onUpdateUser={handleUpdateUser}
+          sighOut={handleSignOut}
           />
           <Route path="*">
             <NotFound />
