@@ -28,7 +28,7 @@ function App() {
         const { _id, name, email } = res.data;
         setCurrentUser({ _id: _id, name: name, email: email, token: jwt })
         setLoggedIn(true);
-        history.push('/');
+        history.push('/movies');
       })
       .catch((err) => console.log(err));
     }
@@ -48,7 +48,7 @@ function App() {
     if (name && email && password){
       MainApi.register(name, email, password).then((res) =>{
         if (res.statusCode !== 400){
-          console.log('ok')
+          handleLogin(email, password);
         } else{
           console.log('Некорректно заполнено одно из полей');
         }
@@ -65,7 +65,7 @@ function App() {
         if(res.token){
           localStorage.setItem('token', res.token);
           setLoggedIn(true);
-          history.push('/');
+          history.push('/movies');
         }
       })
       .catch((err)=> {console.log(err)})
