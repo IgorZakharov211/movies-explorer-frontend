@@ -1,31 +1,71 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './Login.css';
 import logo from '../../images/logo.svg';
 import { Link } from 'react-router-dom';
+import { validators } from '../FormValidator/FormValidator';
 
 function Login(props){
 
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [formValues, setFormValues] = useState({
+    email: '',
+    password: ''
+  });
 
-  const handleEmailChange = event => setEmail(event.target.value);
-  const handlePasswordChange = event => setPassword(event.target.value);
-
-  const handleSubmit = (e) =>{
-    e.preventDefault();
-    if(!email || !password){
-      return;
-    } else{
-      props.onLogin(email, password);
+  const [errors, setErrors] = useState({
+    email: {
+      required: false,
+      isEmail: false
+    },
+    password: {
+      required: false
     }
-  }
+  });
 
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormValues(prevState => ({ ...prevState, [name]: value }));
+  }, [setFormValues]);
+
+  useEffect(function validateInputs(){
+    const { email, password } = formValues;
+
+    const emailValidationResult = Object.keys(validators.email).map(
+      errorKey => {
+        const errorResult = validators.email[errorKey](email);
+
+        return { [errorKey]: errorResult }
+      }
+    ).reduce((acc, el) => ({...acc, ...el}), {});
+    const passwordValidationResult = Object.keys(validators.password).map(
+      errorKey => {
+        const errorResult = validators.password[errorKey](password);
+
+        return { [errorKey]: errorResult }
+      }
+    ).reduce((acc, el) => ({...acc, ...el}), {});
+
+    setErrors({
+      email: emailValidationResult,
+      password: passwordValidationResult
+    });
+  }, [formValues, setErrors]);
+
+  const { email, password } = formValues;
+  const isEmailInvalid = Object.values(errors.email).some(Boolean);
+  const isPasswordInvalid = Object.values(errors.password).some(Boolean);
+  const isSubmitDisabled = isEmailInvalid || isPasswordInvalid;
+  const disabledButton = (isSubmitDisabled) ? 'login__button_disabled': '';
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.onLogin(email, password);
+  }
 
   return(
     <main className="login">
       <form className="login__form" action="#" method="POST" name="login" onSubmit={handleSubmit}>
         <Link to="/"><img className="login__logo-img" src={logo} alt="Логотип"></img></Link>
-        <h2 className="login_title">Рады видеть!</h2>
+        <h2 className="login__title">Рады видеть!</h2>
         <fieldset className="login__fieldset">
           <label className="login__label" htmlFor="email">E-mail</label>
           <input 
@@ -34,9 +74,14 @@ function Login(props){
           value={email}
           type="email"
           reguired="true"
-          onChange={handleEmailChange}
+          onChange={handleInputChange}
           ></input>
-          <span className="login__span">Что-то пошло не так...</span>
+          {  errors.email.required &&
+            <span className="register__span">Поле обязательно для заполнения</span>
+          }
+          {  errors.email.isEmail &&
+            <span className="register__span">Поле должно содержать email адрес</span>
+          }
         </fieldset>
         <fieldset className="login__fieldset">
           <label className="login__label" htmlFor="password">Пароль</label>
@@ -46,12 +91,14 @@ function Login(props){
           value={password}
           type="password"
           reguired="true"
-          onChange={handlePasswordChange}
+          onChange={handleInputChange}
           ></input>
-          <span className="login__span">Что-то пошло не так...</span>
+          {  errors.password.required &&
+            <span className="register__span">Поле обязательно для заполнения</span>
+          }
         </fieldset>
         <div className="login__button-box">
-            <button className="login__button" type="submit">Войти</button>
+        <button className={`login__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>Войти</button>
             <div className="login__text">
               <p className="login__subtitle">Ещё не зарегистрированы?</p>
               <Link to="signup" className="login__link">Регистрация</Link>
