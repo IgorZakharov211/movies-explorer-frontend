@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import * as MainApi from '../../utils/MainApi';
 
 function App() {
+  const [isEmailUnic, setEmailUnic] = React.useState(false);
   const [isNavOpen, setNavOpen] = React.useState(false);
   const [isLoggedIn, setLoggedIn] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({_id: '', name: '', email: '', token: ''});
@@ -47,14 +48,14 @@ function App() {
   function handleRegister(name, email, password){
     if (name && email && password){
       MainApi.register(name, email, password).then((res) =>{
-        if (res.statusCode !== 400){
-          handleLogin(email, password);
-        } else{
-          console.log('Некорректно заполнено одно из полей');
-        }
+        handleLogin(email, password);
       })
       .catch((err) => {
-        console.log(err)
+        if(err.status === 409){
+          setEmailUnic(true)
+        } else {
+          console.log(`Ошибка: ${err.status}`)
+        }
       })
       } else{
         console.log('Не передано одно из полей');
@@ -103,7 +104,7 @@ function App() {
             <Login onLogin={handleLogin}/>
           </Route>
           <Route path="/signup">
-            <Register onRegister={handleRegister}/>
+            <Register onRegister={handleRegister} emailUnic={isEmailUnic}/>
           </Route>
           <ProtectedRoute
           path="/movies"

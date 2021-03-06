@@ -120,6 +120,10 @@ function Register(props){
           {  errors.email.isEmail &&
             <span className="register__span">Поле должно содержать email адрес</span>
           }
+          {
+            props.emailUnic &&
+            <span className="register__span">Email уже используется</span>
+          }
         </fieldset>
         <fieldset className="register__fieldset">
           <label className="register__label" htmlFor="password">Пароль</label>

@@ -4,7 +4,7 @@ const _checkRes = (res) => {
   if (res.ok) {
     return res.json();
   }
-    return Promise.reject(`Ошибка: ${res.status}`);
+    return Promise.reject(`Ошибка: ${res.status}`); 
 }
 
 export const register = (name, email, password) => {
@@ -15,20 +15,13 @@ export const register = (name, email, password) => {
       },
       body: JSON.stringify({name, email, password})
   })
-  .then((response) => {
-    console.log(response)
-    try{
-      if (response.status === 200){
-        return response.json();
-      }
-    } catch(e){
-      return (e)
-    }
-  })
   .then((res) => {
-    return res;
+    if (res.ok){
+      return res.json();
+    }
+      return Promise.reject(res);
   })
-};
+}
 
 export const authorize = (email, password) => {
   return fetch(`${BASE_URL}/signin`,{
@@ -55,9 +48,7 @@ export const getProfile = (token) => {
       'Authorization': `Bearer ${token}`,
     }
   })
-  .then(res => {
-    return res.json()
-  })
+  .then((res) => _checkRes(res))
 };
 
 export const patchMyInfo = (name, email, token) => {
