@@ -70,6 +70,7 @@ function Register(props){
   const isPasswordInvalid = Object.values(errors.password).some(Boolean);
   const isSubmitDisabled = isNameInvalid || isEmailInvalid || isPasswordInvalid;
   const disabledButton = (isSubmitDisabled) ? 'register__button_disabled': '';
+  const renderButton = (props.renderSubmit) ? '...' : '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -140,7 +141,9 @@ function Register(props){
           }
         </fieldset>
         <div className="register__button-box">
-            <button className={`register__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>Зарегистрироваться</button>
+            <button className={`register__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>
+              {`Зарегистрироваться${renderButton}`}
+              </button>
             <div className="register__text">
               <p className="register__subtitle">Уже зарегистрированы?</p>
               <Link to="signin" className="register__link">Войти</Link>

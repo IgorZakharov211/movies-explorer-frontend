@@ -57,6 +57,7 @@
   align-self: center;
   cursor: pointer;
   transition: color .3s ease-in;
+  outline: none;
 }
 
 .search-form__button:hover{

@@ -31,11 +31,11 @@ export const authorize = (email, password) => {
     },
     body: JSON.stringify({email, password})
   })
-  .then((response => response.json()))
-  .then((data) => {
-    if (data){
-      return data;
+  .then((res) => {
+    if(res.ok){
+      return res.json();
     }
+     return Promise.reject(res);
   })
 };
 

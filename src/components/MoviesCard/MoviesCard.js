@@ -5,7 +5,7 @@ import './MoviesCard.css';
 function MoviesCard(props){
   return(
     <div className="movies-card">
-      <img className="movies-card__image" alt="1 фотография" src={props.image}></img>
+      <a className="movies-card__link" href={props.trailerLink}><img className="movies-card__image" alt={props.name} src={props.image}></img></a>
       <div className="movies-card__info">
         <div className="movies-card__text">
           <h2 className="movies-card__name">{props.name}</h2>

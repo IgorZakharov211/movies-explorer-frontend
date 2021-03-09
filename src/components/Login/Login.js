@@ -55,6 +55,7 @@ function Login(props){
   const isPasswordInvalid = Object.values(errors.password).some(Boolean);
   const isSubmitDisabled = isEmailInvalid || isPasswordInvalid;
   const disabledButton = (isSubmitDisabled) ? 'login__button_disabled': '';
+  const renderButton = (props.renderSubmit) ? '...' : '';
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -82,6 +83,10 @@ function Login(props){
           {  errors.email.isEmail &&
             <span className="register__span">Поле должно содержать email адрес</span>
           }
+          {
+            props.authError &&
+            <span className="register__span">Неправильный email или пароль</span>
+          }
         </fieldset>
         <fieldset className="login__fieldset">
           <label className="login__label" htmlFor="password">Пароль</label>
@@ -96,9 +101,15 @@ function Login(props){
           {  errors.password.required &&
             <span className="register__span">Поле обязательно для заполнения</span>
           }
+          {
+            props.authError &&
+            <span className="register__span">Неправильный email или пароль</span>
+          }
         </fieldset>
         <div className="login__button-box">
-        <button className={`login__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>Войти</button>
+        <button className={`login__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>
+        {`Войти${renderButton}`}
+          </button>
             <div className="login__text">
               <p className="login__subtitle">Ещё не зарегистрированы?</p>
               <Link to="signup" className="login__link">Регистрация</Link>

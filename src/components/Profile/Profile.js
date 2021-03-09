@@ -28,7 +28,7 @@ function Profile(props){
 
   return(
     <div>
-      <Header onBurgerButton = {props.onBurgerButton}/>
+      <Header onBurgerButton = {props.onBurgerButton} changeMoviesLoad={props.changeMoviesLoad}/>
       <main className="profile">
         <form className="profile__form" action="#" method="POST" name="profile" onSubmit={handleSubmit}>
           <h2 className="profile__title">Привет, {currentUser.name}!</h2>

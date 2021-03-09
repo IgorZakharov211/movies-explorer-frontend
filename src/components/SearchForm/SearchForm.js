@@ -2,8 +2,13 @@ import React from 'react';
 import './SearchForm.css';
 
 function SearchForm(props) {
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    props.searchMovies();
+  } 
   return(
-    <form className={`search-form ${props.whereOpen}__search-form`}>
+    <form className={`search-form ${props.whereOpen}__search-form`} onSubmit={handleSubmit}>
       <fieldset className="search-form__search">
         <input className="search-form__input" placeholder="Фильм"></input>
         <button className="search-form__button" type="submit">Поиск</button>

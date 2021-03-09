@@ -9,8 +9,8 @@ function Navigation(props){
   return(
     <nav className="navigation">
       <div className="navigation__desktop">
-        <NavLink to="/movies" className={`navigation__nav-link ${lightNavLink}`} activeClassName="navigation__nav-link_active">Фильмы</NavLink>
-        <NavLink to="/saved-movies" className={`navigation__nav-link ${lightNavLink}`} activeClassName="navigation__nav-link_active">Сохраненные фильмы</NavLink>
+        <NavLink to="/movies" className={`navigation__nav-link ${lightNavLink}`} activeClassName="navigation__nav-link_active" onClick={props.changeMoviesLoad}>Фильмы</NavLink>
+        <NavLink to="/saved-movies" className={`navigation__nav-link ${lightNavLink}`} activeClassName="navigation__nav-link_active" onClick={props.changeMoviesLoad}>Сохраненные фильмы</NavLink>
         <Link to="/profile"><button className={`navigation__profile ${lightProfile}`}><p className="navigation__profile-text">Аккаунт</p></button></Link>
       </div>
       <button className="navigation__burger" onClick={props.onBurgerButton}></button>
