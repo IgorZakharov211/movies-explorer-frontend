@@ -11,6 +11,9 @@ export const validators = {
   }, 
   password:{
     required: (value) => { return value === ''; }
+  },
+  movie:{
+    required: (value) => { return value === ''; }
   }
 }
 

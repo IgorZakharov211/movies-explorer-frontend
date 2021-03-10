@@ -9,8 +9,8 @@ function MoviesCardList(props){
   return(
     <section className={`movies-card-list ${props.whereOpen}__movies-card-list`}>
       <div className="movies-card-list__container">
-        { 
-          props.movies.map(({key, id, country, created_at, description, director, duration, image, nameRU, nameEN, trailerLink, year})=> {
+        { props.movies &&
+          props.movies.map(({key, id, country, created_at, description, director, duration, image, nameRU, nameEN, trailerLink, year, isSaved})=> {
             let loadImage = `${notFound}`;
             if(image !== null) {
               loadImage = `${IMAGE_URL}${image.url}`
@@ -25,7 +25,7 @@ function MoviesCardList(props){
             } else{
               time = `${minutes}м`;
             }
-            return <MoviesCard key={id} id={id} image={loadImage} name={nameRU} duration={time} trailerLink={trailerLink} />
+            return <MoviesCard key={id} id={id} image={loadImage} name={nameRU} duration={time} trailerLink={trailerLink} isSaved={isSaved} saveMovie={props.saveMovie}/>
           })
         }
       </div>

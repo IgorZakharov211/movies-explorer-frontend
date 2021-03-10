@@ -57,23 +57,18 @@
   display: none;
 }
 
-.movies-card__switch {
+.movies-card__save{
   cursor: pointer;
-}
-.movies-card__switch:before{
-  content: '';
-  display: inline-block;
-  background-color: #F9F9F9;
-  height: 16px;
   width: 16px;
-  border-radius: 50px;
-  box-sizing: border-box;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
-  transition: background-color .3s ease;
+  height: 16px;
   border: 2px solid #ffffff;
+  background-color: #F9F9F9;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.09);
+  border-radius: 50%;
+  outline: none;
 }
 
-.movies-card__input:checked + .movies-card__switch:before {
+.movies-card__save_active{
   background-color: #2BE080;
 }
 

@@ -64,6 +64,20 @@
   color: rgba(255, 255, 255, .6);
 }
 
+.search-form__button_disabled{
+  background: #F9F9F9;
+  color: #000000;
+  cursor: default;
+}
+
+.search-form__button_disabled:hover{
+  color: #000000;
+}
+
+.search-form__button_disabled:active{
+  color: #000000;
+}
+
 .search-form__checkbox-subtitle{
   margin: 0 0 0 14px;
   padding: 0;

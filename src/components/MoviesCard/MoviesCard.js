@@ -3,8 +3,14 @@ import { Switch, Route } from 'react-router-dom';
 import './MoviesCard.css';
 
 function MoviesCard(props){
+  const activeSavedButton = (props.isSaved) ? 'movies-card__save_active' : '';
+
+  function handleSaveMovie(e){
+    props.saveMovie(e);
+  }
+
   return(
-    <div className="movies-card">
+    <div className="movies-card" id={props.id}>
       <a className="movies-card__link" href={props.trailerLink}><img className="movies-card__image" alt={props.name} src={props.image}></img></a>
       <div className="movies-card__info">
         <div className="movies-card__text">
@@ -13,10 +19,7 @@ function MoviesCard(props){
         </div>
         <Switch>
           <Route path="/movies">
-            <label className="movies-card__check">
-              <input className="movies-card__input" type="checkbox" name="save" value="check"></input>
-              <span className="movies-card__switch"></span>
-            </label>
+            <button className={`movies-card__save ${activeSavedButton}`} onClick={handleSaveMovie}></button>
           </Route>
           <Route path="/saved-movies">
             <button className="movies-card__remove"></button>

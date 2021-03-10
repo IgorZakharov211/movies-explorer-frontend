@@ -20,17 +20,22 @@ function App() {
   const [isEmailUnic, setEmailUnic] = React.useState(false);
   const [isAuthError, setAuthError] = React.useState(false);
   const [isRenderSubmit, setRenderSubmit] = React.useState(false);
+  const [isRenderSearch, setRenderSearch] = React.useState(false);
   const [isNavOpen, setNavOpen] = React.useState(false);
   const [isLoggedIn, setLoggedIn] = React.useState(false);
   const [isMoviesLoad, setMoviesLoad] = React.useState(false);
+  const [isMoviesFound, setMoviesFound] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({_id: '', name: '', email: '', token: ''});
   const [movies, setMovies] = React.useState([]);
+  const [savedMovies, setSavedMovies] = React.useState([]);
   const history = useHistory();
 
-
-  function handleSubmitSearch(){
+  function handleSubmitSearch(movie){
+    setRenderSearch(true);
+    localStorage.removeItem('movies');
+    setMovies('');
     MoviesApi.getMovies().then((data) => {
-      setMovies(data.map((item) => ({
+      const movies = data.map((item) => ({
         id: item.id,
         country: item.country,
         created_at: item.created_at,
@@ -41,19 +46,71 @@ function App() {
         nameRU: item.nameRU,
         nameEN: item.nameEN,
         trailerLink: item.trailerLink,
-        year: item.year
-      })))
+        year: item.year,
+        isSaved: false
+      }))
+      const result = movies.filter(item => {
+        let position = -1;
+        while((position = item.nameRU.replace( /^\s+/g, '').toLowerCase().indexOf(movie.toLowerCase(), position + 1)) != -1){
+          if(position != -1){
+            return item;
+          } else{
+            return false;
+          }
+        }
+      })
+      if(result.length !== 0){
+        setMoviesFound(true)
+        setMovies(result);
+        localStorage.setItem('movies', JSON.stringify(result));
+      } else {
+        setMoviesFound(false)
+      }
     })
     .catch((err) => {
       console.log(err)
     })
-    .finally(setMoviesLoad(true));
+    .finally(() =>{
+      setMoviesLoad(true);
+      setRenderSearch(false);
+    });
   }
 
-
-  function handleChangeMoviesLoad(){
-    setMoviesLoad(false);
+  function loadMovies(){
+    if(localStorage.getItem('movies') !== false){
+      setMovies(JSON.parse(localStorage.getItem('movies')));
+      setMoviesLoad(true);
+    }
   }
+
+  useEffect(() => {loadMovies()}, [isMoviesLoad])
+
+  function handleSubmitSavedSearch(movie){
+    setRenderSearch(true);
+    const jwt = localStorage.getItem('token');
+    MainApi.getMovies(jwt).then((data) =>{
+      console.log(data)
+    })
+  }
+
+  function handleFilterShortMovies(enable){
+    if(enable === false && movies !== null){
+      const result = movies.filter(item => {
+        return item.duration < 40;
+      })
+      if(result.length !== 0){
+        setMoviesFound(true);
+        setMovies(result);
+      } else{
+        setMoviesFound(false);
+        setMovies('');
+      }
+    } else if(enable === true){
+      setMoviesFound(true);
+      setMovies(JSON.parse(localStorage.getItem('movies')));
+    }
+  }
+
 
   function tokenCheck(){
     if(localStorage.getItem('token')){
@@ -138,13 +195,91 @@ function App() {
       setLoggedIn(false);
     }
 
+    function handleCreateMovie(movie){
+      const jwt = localStorage.getItem('token');
+      MainApi.createMovie(
+        jwt, 
+        movie.country, 
+        movie.director,
+        movie.duration,
+        movie.year,
+        movie.description,
+        movie.image.url,
+        movie.trailerLink,
+        movie.image.url,
+        movie.id,
+        movie.nameRU,
+        movie.nameEN
+      ).then((res) => {
+          console.log(res);
+        }).catch((err) => {
+          console.log(err)
+        })
+    }
+
+    function handleDeleteMovie(movie){
+      
+    }
+
+    function handleSaveMovie(e){
+      const movieId = e.target.parentElement.parentElement.id;
+      movies.map((item) => {
+        if(item.id == movieId){
+          if(item.isSaved === false){
+            handleCreateMovie(item);
+          } else if (item.isSaved === true){
+            handleDeleteMovie(item);
+          }
+        }
+      })
+      const newMovies = movies.map((item) => {
+        if(item.id == movieId){
+          if(item.isSaved === false){
+            return {
+              id: item.id,
+              country: item.country,
+              created_at: item.created_at,
+              description: item.description,
+              director: item.director,
+              duration: item.duration,
+              image: item.image,
+              nameRU: item.nameRU,
+              nameEN: item.nameEN,
+              trailerLink: item.trailerLink,
+              year: item.year,
+              isSaved: true
+            }
+          } else if(item.isSaved === true) {
+            return {
+              id: item.id,
+              country: item.country,
+              created_at: item.created_at,
+              description: item.description,
+              director: item.director,
+              duration: item.duration,
+              image: item.image,
+              nameRU: item.nameRU,
+              nameEN: item.nameEN,
+              trailerLink: item.trailerLink,
+              year: item.year,
+              isSaved: false
+            }
+          }
+        } else{
+          return item
+        }
+      });
+      setMovies(newMovies);
+      localStorage.setItem('movies', JSON.stringify(newMovies));
+    }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app-page">
         <Popup isOpen={isNavOpen} onClose={closeAllPopups}/>
         <Switch>
           <Route exact path="/">
-            <Header isLoggedIn={isLoggedIn} changeMoviesLoad={handleChangeMoviesLoad}/>
+            <Header isLoggedIn={isLoggedIn}/>
             <Main />
             <Footer />
           </Route>
@@ -158,25 +293,28 @@ function App() {
           path="/movies"
           loggedIn={isLoggedIn}
           onBurgerButton = {handleNavOpen}
-          changeMoviesLoad={handleChangeMoviesLoad}
           movies={movies}
           searchMovies={handleSubmitSearch}
+          shortMovies={handleFilterShortMovies}
+          renderSearch={isRenderSearch}
           isMoviesLoad={isMoviesLoad}
           component={Movies}
+          saveMovie={handleSaveMovie} 
+          isMoviesFound={isMoviesFound}
           />
           <ProtectedRoute
           path="/saved-movies"
           loggedIn={isLoggedIn}
           onBurgerButton = {handleNavOpen}
-          changeMoviesLoad={handleChangeMoviesLoad}
           isMoviesLoad={isMoviesLoad}
           component={SavedMovies}
+          searchSavedMovies={handleSubmitSavedSearch}
+          renderSearch={isRenderSearch}
           />
           <ProtectedRoute
           path="/profile"
           loggedIn={isLoggedIn}
           onBurgerButton = {handleNavOpen}
-          changeMoviesLoad={handleChangeMoviesLoad}
           component={Profile}
           onUpdateUser={handleUpdateUser}
           sighOut={handleSignOut}

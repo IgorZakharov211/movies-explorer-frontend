@@ -9,9 +9,9 @@ import Preloader from '../Preloader/Preloader';
 function SavedMovies(props){
   return(
     <div>
-      <Header onBurgerButton = {props.onBurgerButton} changeMoviesLoad={props.changeMoviesLoad}/>
+      <Header onBurgerButton = {props.onBurgerButton}/>
       <main className="saved-movies">
-        <SearchForm whereOpen={'saved-movies'}/>
+        <SearchForm whereOpen={'saved-movies'} searchSavedMovies={props.searchSavedMovies} renderSearch={props.renderSearch}/>
         {
           !props.isMoviesLoad && <Preloader/>
         }
