@@ -16,6 +16,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import * as MainApi from '../../utils/MainApi';
 import * as MoviesApi from '../../utils/MoviesApi';
 
+
 function App() {
   const [isEmailUnic, setEmailUnic] = React.useState(false);
   const [isAuthError, setAuthError] = React.useState(false);
@@ -28,44 +29,88 @@ function App() {
   const [currentUser, setCurrentUser] = React.useState({_id: '', name: '', email: '', token: ''});
   const [movies, setMovies] = React.useState([]);
   const [savedMovies, setSavedMovies] = React.useState([]);
+  const [savedMoviesId, setSavedMoviesId] = React.useState([]);
   const history = useHistory();
+
+  function getSavedMovieId(){
+    const jwt = localStorage.getItem('token');
+    const resultGetMovies = [];
+    MainApi.getMovies(jwt).then((data) =>{
+      data.forEach((item) => { 
+        resultGetMovies.push(item.movieId);
+      })
+    })
+    .catch((err) => console.log(err))
+    .finally(() => {
+      setSavedMoviesId(resultGetMovies)
+    });
+  }
+
+  function handleSearch(movie, data, whereOpen){
+    getSavedMovieId();
+    const movies = data.map((item) => ({
+      id: (whereOpen === 'movies') ? item.id: item.movieId,
+      country: item.country,
+      created_at: item.created_at,
+      description: item.description,
+      director: item.director,
+      duration: item.duration,
+      image: item.image,
+      nameRU: item.nameRU,
+      nameEN: item.nameEN,
+      trailerLink: (whereOpen === 'movies') ? item.trailerLink : item.trailer,
+      year: item.year,
+      isSaved: (whereOpen === 'movies') ? savedMoviesId.includes(String(item.id)) : savedMoviesId.includes(String(item.movieId))
+    }))
+    const result = movies.filter(item => {
+      let position = -1;
+      while((position = item.nameRU.replace( /^\s+/g, '').toLowerCase().indexOf(movie.toLowerCase(), position + 1)) != -1){
+        if(position != -1){
+          return item;
+        } else{
+          return false;
+        }
+      }
+    })
+    return result;
+  }
 
   function handleSubmitSearch(movie){
     setRenderSearch(true);
     localStorage.removeItem('movies');
     setMovies('');
     MoviesApi.getMovies().then((data) => {
-      const movies = data.map((item) => ({
-        id: item.id,
-        country: item.country,
-        created_at: item.created_at,
-        description: item.description,
-        director: item.director,
-        duration: item.duration,
-        image: item.image,
-        nameRU: item.nameRU,
-        nameEN: item.nameEN,
-        trailerLink: item.trailerLink,
-        year: item.year,
-        isSaved: false
-      }))
-      const result = movies.filter(item => {
-        let position = -1;
-        while((position = item.nameRU.replace( /^\s+/g, '').toLowerCase().indexOf(movie.toLowerCase(), position + 1)) != -1){
-          if(position != -1){
-            return item;
-          } else{
-            return false;
-          }
-        }
-      })
+      const result = handleSearch(movie, data, 'movies');
       if(result.length !== 0){
         setMoviesFound(true)
         setMovies(result);
         localStorage.setItem('movies', JSON.stringify(result));
       } else {
         setMoviesFound(false)
-      }
+      } 
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+    .finally(() =>{
+      setMoviesLoad(true);
+      setRenderSearch(false);
+    });
+  }
+
+  function handleSubmitSavedSearch(movie){
+    setRenderSearch(true);
+    const jwt = localStorage.getItem('token');
+    MainApi.getMovies(jwt).then((data) =>{
+      console.log(data)
+      const result = handleSearch(movie, data, 'saved-movies');
+      if(result.length !== 0){
+        setMoviesFound(true)
+        setSavedMovies(result);
+        localStorage.setItem('saved-movies', JSON.stringify(result));
+      } else {
+        setMoviesFound(false)
+      } 
     })
     .catch((err) => {
       console.log(err)
@@ -77,21 +122,17 @@ function App() {
   }
 
   function loadMovies(){
-    if(localStorage.getItem('movies') !== false){
+    if(localStorage.getItem('movies') !== null){
       setMovies(JSON.parse(localStorage.getItem('movies')));
+      setMoviesFound(true);
       setMoviesLoad(true);
+    } else {
+      setMoviesFound(false);
+      setMoviesLoad(false);
     }
   }
 
-  useEffect(() => {loadMovies()}, [isMoviesLoad])
-
-  function handleSubmitSavedSearch(movie){
-    setRenderSearch(true);
-    const jwt = localStorage.getItem('token');
-    MainApi.getMovies(jwt).then((data) =>{
-      console.log(data)
-    })
-  }
+  useEffect(() => {loadMovies()}, [])
 
   function handleFilterShortMovies(enable){
     if(enable === false && movies !== null){
@@ -211,14 +252,25 @@ function App() {
         movie.nameRU,
         movie.nameEN
       ).then((res) => {
-          console.log(res);
+        console.log(`Карточка ${res} добавлена`)
+        loadMovies();
         }).catch((err) => {
           console.log(err)
         })
     }
 
     function handleDeleteMovie(movie){
-      
+      const jwt = localStorage.getItem('token');
+      let resultGetMovie = '';
+      MainApi.getMovies(jwt).then((data) =>{
+      data.forEach((item) => { 
+       if(Number(item.movieId) === Number(movie.id)){
+          resultGetMovie= item._id;
+      } 
+      })
+      MainApi.deleteMovie(jwt, resultGetMovie).then((res) => {console.log(`Карточка ${res} удалена`)})
+      loadMovies();
+      })
     }
 
     function handleSaveMovie(e){
@@ -310,6 +362,7 @@ function App() {
           component={SavedMovies}
           searchSavedMovies={handleSubmitSavedSearch}
           renderSearch={isRenderSearch}
+          movies={savedMovies}
           />
           <ProtectedRoute
           path="/profile"

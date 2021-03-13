@@ -9,12 +9,18 @@ function MoviesCardList(props){
   return(
     <section className={`movies-card-list ${props.whereOpen}__movies-card-list`}>
       <div className="movies-card-list__container">
-        { props.movies &&
+        { 
+        props.movies &&
           props.movies.map(({key, id, country, created_at, description, director, duration, image, nameRU, nameEN, trailerLink, year, isSaved})=> {
             let loadImage = `${notFound}`;
-            if(image !== null) {
-              loadImage = `${IMAGE_URL}${image.url}`
+            if(typeof(image) === 'string'){
+              loadImage = image;
+            } else if (typeof(image) === 'object'){
+              if(image !== null) {
+                loadImage = `${IMAGE_URL}${image.url}`
+              }
             }
+            
             let time = duration;
             let hours = Math.floor(time / 60);
             let minutes = Math.floor(time % 60);

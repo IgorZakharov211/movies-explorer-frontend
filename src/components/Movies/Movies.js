@@ -16,7 +16,7 @@ function Movies(props){
           !props.isMoviesLoad && <Preloader/>
         }
         {
-          !props.isMoviesFound && <p className="movies__subtitle">Ничего не найдено</p>
+          !props.isMoviesFound && props.isMoviesLoad && <p className="movies__subtitle">Ничего не найдено</p>
         }
         {
           props.isMoviesLoad && <MoviesCardList whereOpen={'movies'} movies={props.movies} saveMovie={props.saveMovie} isMoviesFound={props.isMoviesFound}/>
