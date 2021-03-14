@@ -6,6 +6,10 @@
   box-shadow: 0px 16px 24px rgba(0, 0, 0, 0.05);
 }
 
+.movies-card_display_none{
+  display: none;
+}
+
 .movies-card__link{
   cursor: pointer;
 }

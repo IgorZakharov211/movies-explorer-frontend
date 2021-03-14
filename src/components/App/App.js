@@ -100,19 +100,10 @@ function App() {
       setLoadSavedMovies([])
     }
   }
-/*
+
   function handleFilterShortMovies(enable){
-    if(JSON.parse(localStorage.getItem('movies')).length == 0){
-      console.log(1)
-    } else{
-      if(!enable){
-        setShortMoviesEnable(true)
-      } else{
-        setShortMoviesEnable(false)
-      }
-    }
+    setShortMoviesEnable(!enable);
   }
-*/
 
   function tokenCheck(){
     if(localStorage.getItem('token')){
@@ -265,14 +256,14 @@ function App() {
         movie.nameEN
       )
       .then((res) => {
-        changeSave(movie);
+        changeMovie(movie);
       })
       .catch((err) => {
         console.log(err)
       })
     }
 
-    function changeSave(movie){ 
+    function changeMovie(movie){ 
       const newMovies = loadMovies.map((c) => { 
         if(c.id === movie.id){
           if(c.isSaved === false){
@@ -287,7 +278,8 @@ function App() {
               trailerLink: movie.trailerLink,
               nameRU: movie.nameRU,
               nameEN: movie.nameEN,
-              isSaved: true
+              isSaved: true,
+              isShort: movie.isShort
             }
           } else{
             return {
@@ -301,13 +293,23 @@ function App() {
               trailerLink: movie.trailerLink,
               nameRU: movie.nameRU,
               nameEN: movie.nameEN,
-              isSaved: false
+              isSaved: false,
+              isShort: movie.isShort
           }
         }
       } else{
         return c
       }})
       setLoadMovies(newMovies);
+      const newSavedMovies = loadSavedMovies.filter((item) => {
+        console.log(Number(movie.id) === Number(item.id))
+        if(Number(movie.id) !== Number(item.id)){
+          return item
+        }
+      })
+      setLoadSavedMovies(newSavedMovies)
+      localStorage.setItem('movies', JSON.stringify(newMovies));
+      localStorage.setItem('saved-movies', JSON.stringify(newSavedMovies));
     }
 
     function handleDeleteMovie(movie){
@@ -317,7 +319,7 @@ function App() {
           if(Number(item.movieId) === Number(movie.id)){
             MainApi.deleteMovie(jwt, item._id)
             .then((res) => {
-              changeSave(movie);
+              changeMovie(movie);
             })
             .catch((err) => console.log(err))
           }
@@ -364,6 +366,8 @@ function App() {
           component={Movies}
           saveMovie={handleSaveMovie} 
           isMoviesFound={isMoviesFound}
+          shortMovies={handleFilterShortMovies}
+          isShortMoviesEnable={isShortMoviesEnable}
           />
           <ProtectedRoute
           path="/saved-movies"
@@ -374,6 +378,7 @@ function App() {
           searchSavedMovies={handleSubmitSavedSearch}
           movies={loadSavedMovies}
           isSavedMoviesFound={isSavedMoviesFound}
+          saveMovie={handleSaveMovie} 
           />
           <ProtectedRoute
           path="/profile"

@@ -11,7 +11,7 @@ function MoviesCardList(props){
       <div className="movies-card-list__container">
         { 
         props.movies &&
-          props.movies.map(({key, id, country, created_at, description, director, duration, image, nameRU, nameEN, trailerLink, year, isSaved})=> {
+          props.movies.map(({key, id, country, created_at, description, director, duration, image, nameRU, nameEN, trailerLink, year, isSaved, isShort})=> {
             let loadImage = `${notFound}`;
             if(typeof(image) === 'string'){
               loadImage = image;
@@ -31,7 +31,18 @@ function MoviesCardList(props){
             } else{
               time = `${minutes}м`;
             }
-            return <MoviesCard key={id} id={id} image={loadImage} name={nameRU} duration={time} trailerLink={trailerLink} isSaved={isSaved} saveMovie={props.saveMovie}/>
+            return <MoviesCard 
+            key={id} 
+            id={id} 
+            image={loadImage} 
+            name={nameRU} 
+            duration={time} 
+            trailerLink={trailerLink} 
+            isSaved={isSaved} 
+            saveMovie={props.saveMovie}
+            isShort={isShort}
+            isShortMoviesEnable={props.isShortMoviesEnable}
+            />
           })
         }
       </div>

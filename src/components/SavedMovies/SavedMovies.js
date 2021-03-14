@@ -19,7 +19,7 @@ function SavedMovies(props){
           !props.isSavedMoviesFound && props.isSavedMoviesLoad && <p className="movies__subtitle">Ничего не найдено</p>
         }
         {
-          props.isSavedMoviesLoad && <MoviesCardList whereOpen={'saved-movies'} movies={props.movies}/>
+          props.isSavedMoviesLoad && <MoviesCardList whereOpen={'saved-movies'} movies={props.movies} saveMovie={props.saveMovie}/>
         }
       </main>
       <Footer />

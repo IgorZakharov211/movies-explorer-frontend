@@ -19,7 +19,7 @@ function Movies(props){
           !props.isMoviesFound && props.isMoviesLoad && <p className="movies__subtitle">Ничего не найдено</p>
         }
         {
-          props.isMoviesLoad && <MoviesCardList whereOpen={'movies'} movies={props.movies} saveMovie={props.saveMovie} isMoviesFound={props.isMoviesFound}/>
+          props.isMoviesLoad && <MoviesCardList whereOpen={'movies'} movies={props.movies} saveMovie={props.saveMovie} isMoviesFound={props.isMoviesFound} isShortMoviesEnable={props.isShortMoviesEnable}/>
         }
         
       </main>
