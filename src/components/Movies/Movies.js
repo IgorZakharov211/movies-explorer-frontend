@@ -11,7 +11,7 @@ function Movies(props){
     <div>
       <Header onBurgerButton = {props.onBurgerButton}/>
       <main className="movies">
-        <SearchForm whereOpen={'movies'} searchMovies={props.searchMovies} renderSearch={props.renderSearch} shortMovies={props.shortMovies}/>
+        <SearchForm whereOpen={'movies'} searchMovies={props.searchMovies} shortMovies={props.shortMovies}/>
         {
           !props.isMoviesLoad && <Preloader/>
         }

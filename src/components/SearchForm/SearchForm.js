@@ -17,7 +17,6 @@ function SearchForm(props) {
   const isMovieInvalid = Object.values(errors.movie).some(Boolean);
   const isSubmitDisabled = isMovieInvalid
   const disabledButton = (isSubmitDisabled) ? 'search-form__button_disabled': '';
-  const renderButton = (props.renderSearch) ? '...' : '';
   const [isShortEnable, setShortEnable] = useState(false);
 
   const handleSubmit = (e) => {
@@ -68,8 +67,7 @@ function SearchForm(props) {
     <form className={`search-form ${props.whereOpen}__search-form`} onSubmit={handleSubmit}>
       <fieldset className="search-form__search">
         <input className="search-form__input" placeholder="Фильм" name="movie" onChange={handleInputChange} value={movie}></input>
-        <button className={`search-form__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>
-        {`Поиск${renderButton}`}
+        <button className={`search-form__button ${disabledButton}`} type="submit" disabled={isSubmitDisabled}>Поиск
         </button>
       </fieldset>
       <fieldset className="search-form__short">

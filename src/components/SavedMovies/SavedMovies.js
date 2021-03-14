@@ -11,12 +11,15 @@ function SavedMovies(props){
     <div>
       <Header onBurgerButton = {props.onBurgerButton}/>
       <main className="saved-movies">
-        <SearchForm whereOpen={'saved-movies'} searchSavedMovies={props.searchSavedMovies} renderSearch={props.renderSearch}/>
+        <SearchForm whereOpen={'saved-movies'} searchSavedMovies={props.searchSavedMovies}/>
         {
-          !props.isMoviesLoad && <Preloader/>
+          !props.isSavedMoviesLoad && <Preloader/>
         }
         {
-          props.isMoviesLoad && <MoviesCardList whereOpen={'saved-movies'} movies={props.movies}/>
+          !props.isSavedMoviesFound && props.isSavedMoviesLoad && <p className="movies__subtitle">Ничего не найдено</p>
+        }
+        {
+          props.isSavedMoviesLoad && <MoviesCardList whereOpen={'saved-movies'} movies={props.movies}/>
         }
       </main>
       <Footer />
