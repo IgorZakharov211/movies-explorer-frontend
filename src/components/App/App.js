@@ -379,6 +379,8 @@ function App() {
           movies={loadSavedMovies}
           isSavedMoviesFound={isSavedMoviesFound}
           saveMovie={handleSaveMovie} 
+          isShortMoviesEnable={isShortMoviesEnable}
+          shortMovies={handleFilterShortMovies}
           />
           <ProtectedRoute
           path="/profile"

@@ -60,9 +60,6 @@ function SearchForm(props) {
     });
   }, [formValues, setErrors]);
 
-  
-
-
   return(
     <form className={`search-form ${props.whereOpen}__search-form`} onSubmit={handleSubmit}>
       <fieldset className="search-form__search">
