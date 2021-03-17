@@ -13,7 +13,6 @@ function MoviesCardList(props){
   let moviesShow = 0;
 
   function setCounts(){
-    
     if(moviesContainer !== null){
       setMoviesCount(moviesContainer.childElementCount);
       if(windowWidth > 1280){
@@ -33,8 +32,6 @@ function MoviesCardList(props){
       }
     }
     setWindowWidth(window.screen.width);
-    console.log(moviesCount);
-    console.log(windowWidth);
   }
   setTimeout(setCounts, 100);
 
@@ -146,8 +143,9 @@ function MoviesCardList(props){
               time = `${hours}ч`;
             } else{
               time = `${minutes}м`;
-            }
-            return <MoviesCard 
+            } 
+            if(props.isShortMoviesEnable && isShort){
+              return <MoviesCard 
             key={id} 
             id={id} 
             image={loadImage} 
@@ -156,9 +154,19 @@ function MoviesCardList(props){
             trailerLink={trailerLink} 
             isSaved={isSaved} 
             saveMovie={props.saveMovie}
-            isShort={isShort}
-            isShortMoviesEnable={props.isShortMoviesEnable}
             />
+            } else if(!props.isShortMoviesEnable){
+              return <MoviesCard 
+              key={id} 
+              id={id} 
+              image={loadImage} 
+              name={nameRU} 
+              duration={time} 
+              trailerLink={trailerLink} 
+              isSaved={isSaved} 
+              saveMovie={props.saveMovie}
+              />
+            }
           })
         }
       </div>

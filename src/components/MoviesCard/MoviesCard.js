@@ -4,13 +4,12 @@ import './MoviesCard.css';
 
 function MoviesCard(props){
   const activeSavedButton = (props.isSaved) ? 'movies-card__save_active' : '';
-  const disableMovies = (props.isShortMoviesEnable && !props.isShort) ? 'movies-card_display_none' : ''
   function handleSaveMovie(e){
     props.saveMovie(e);
   }
 
   return(
-    <div className={`movies-card ${disableMovies}`} id={props.id}>
+    <div className='movies-card' id={props.id}>
       <a className="movies-card__link" href={props.trailerLink}><img className="movies-card__image" alt={props.name} src={props.image}></img></a>
       <div className="movies-card__info">
         <div className="movies-card__text">

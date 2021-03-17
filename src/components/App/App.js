@@ -117,30 +117,28 @@ function App() {
           setMovies(data);
           const resultGetMovies = [];
           MainApi.getMovies(jwt).then((data) =>{
-          data.forEach((item) => {
-            if(res.data._id === item.owner){
-              const savedMoviesData = data.map((item) => ({
-                id: item.movieId,
-                country: item.country,
-                created_at: item.created_at,
-                description: item.description,
-                director: item.director,
-                duration: item.duration,
-                image: item.image,
-                nameRU: item.nameRU,
-                nameEN: item.nameEN,
-                trailerLink: item.trailer,
-                year: item.year,
-                isSaved: true
-              }))
-              setSavedMovies(savedMoviesData);
-            }
-          })
+            const resultMoviesData = [];
           data.forEach((item) => { 
             if(res.data._id === item.owner){
+              resultMoviesData.push({
+                id: item.movieId,
+                country: item.country, 
+                director: item.director,
+                duration: item.duration,
+                year: item.year,
+                description: item.description,
+                image: item.image,
+                trailerLink: item.trailer,
+                nameRU: item.nameRU,
+                nameEN: item.nameEN,
+                isSaved: true,
+                isShort: (item.duration < 40) ? true : false
+              });
               resultGetMovies.push(item.movieId);
             }
           })
+          console.log(resultMoviesData)
+          setSavedMovies(resultMoviesData)
           })
           .catch((err) => console.log(err))
           .finally(() => {
@@ -213,10 +211,12 @@ function App() {
     }
 
     function handleUpdateUser(name, email){
+      setRenderSubmit(true);
       MainApi.patchMyInfo(name, email, currentUser.token).then((res) => {
         console.log(res)
         const { _id, name, email} = res.data;
-        setCurrentUser({_id: _id, name: name, email: email, token: currentUser.token})
+        setCurrentUser({_id: _id, name: name, email: email, token: currentUser.token});
+        setRenderSubmit(false)
       })
       .catch((err) =>{
         console.log(err);
@@ -302,7 +302,6 @@ function App() {
       }})
       setLoadMovies(newMovies);
       const newSavedMovies = loadSavedMovies.filter((item) => {
-        console.log(Number(movie.id) === Number(item.id))
         if(Number(movie.id) !== Number(item.id)){
           return item
         }
@@ -384,6 +383,7 @@ function App() {
           />
           <ProtectedRoute
           path="/profile"
+          renderSubmit={isRenderSubmit}
           loggedIn={isLoggedIn}
           onBurgerButton = {handleNavOpen}
           component={Profile}
