@@ -15,7 +15,7 @@ export const filterMovies = (movies, savedMoviesId, filter) => {
     isSaved: savedMoviesId.includes(String(item.id)),
     isShort: (item.duration < 40) ? true : false
    }))
-   let filterResult = allMovies.filter(item => {
+   const filterResult = allMovies.filter(item => {
     let position = -1;
     while((position = item.nameRU.replace( /^\s+/g, '').toLowerCase().indexOf(filter.toLowerCase(), position + 1)) != -1){
       if(position != -1){

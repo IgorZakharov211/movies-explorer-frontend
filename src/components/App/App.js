@@ -32,6 +32,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({_id: '', name: '', email: '', token: ''});
   const [loadMovies, setLoadMovies] = useState([]);
   const [loadSavedMovies, setLoadSavedMovies] = useState([]);
+  const [isUpdateSuccess, setUpdateSuccess] = useState(false);
   const history = useHistory();
 
   function handleLoadMovies(){
@@ -209,7 +210,7 @@ function App() {
     }
   }
 
-  useEffect(() => {tokenCheck()}, [isLoggedIn, loadMovies])
+  useEffect(() => {tokenCheck()}, [isLoggedIn])
   
 
   function handleNavOpen(){
@@ -267,7 +268,8 @@ function App() {
       MainApi.patchMyInfo(name, email, currentUser.token).then((res) => {
         const { _id, name, email} = res.data;
         setCurrentUser({_id: _id, name: name, email: email, token: currentUser.token});
-        setRenderSubmit(false)
+        setRenderSubmit(false);
+        setUpdateSuccess(true);
       })
       .catch((err) =>{
         console.log(err);
@@ -469,6 +471,7 @@ function App() {
           component={Profile}
           onUpdateUser={handleUpdateUser}
           sighOut={handleSignOut}
+          successUpdate={isUpdateSuccess}
           />
           <Route path="*">
             <NotFound />

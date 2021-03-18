@@ -59,6 +59,7 @@ function Profile(props){
   const isEmailInvalid = Object.values(errors.email).some(Boolean);
   const isSubmitDisabled = isNameInvalid || isEmailInvalid;
   const renderButton = (props.renderSubmit) ? '...' : '';
+  const showSuccess = (props.successUpdate) ? 'Изменения сохранены' : 'Привет';
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -70,7 +71,7 @@ function Profile(props){
       <Header onBurgerButton = {props.onBurgerButton} changeMoviesLoad={props.changeMoviesLoad}/>
       <main className="profile">
         <form className="profile__form" action="#" method="POST" name="profile" onSubmit={handleSubmit}>
-          <h2 className="profile__title">Привет, {currentUser.name}!</h2>
+          <h2 className="profile__title">{showSuccess}, {currentUser.name}!</h2>
           <fieldset className="profile__fieldset">
             <label className="profile__label" htmlFor="name">Имя</label>
             <input className="profile__input" value={name} placeholder="Имя" onChange={handleInputChange} name="name"></input>

@@ -13,7 +13,7 @@ function SavedMovies(props){
       <main className="saved-movies">
         <SearchForm whereOpen={'saved-movies'} searchSavedMovies={props.searchSavedMovies} shortMovies={props.shortMovies}/>
         {
-          !props.isSavedMoviesLoad && <Preloader/>
+          props.isPreloaderEnable && <Preloader/>
         }
         {
           !props.isSavedMoviesFound && props.isSavedMoviesLoad && <p className="movies__subtitle">Ничего не найдено</p>
