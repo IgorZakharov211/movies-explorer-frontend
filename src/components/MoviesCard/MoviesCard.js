@@ -5,11 +5,11 @@ import './MoviesCard.css';
 function MoviesCard(props){
   const activeSavedButton = (props.isSaved) ? 'movies-card__save_active' : '';
   function handleSaveMovie(e){
-    props.saveMovie(e);
+    props.saveMovie(props.movieId);
   }
 
   return(
-    <div className='movies-card' id={props.id}>
+    <div className='movies-card' id={props.movieId}>
       <a className="movies-card__link" href={props.trailerLink}><img className="movies-card__image" alt={props.name} src={props.image}></img></a>
       <div className="movies-card__info">
         <div className="movies-card__text">

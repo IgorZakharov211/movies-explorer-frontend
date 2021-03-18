@@ -124,7 +124,7 @@ function MoviesCardList(props){
       <div className="movies-card-list__container">
         { 
         props.movies &&
-          props.movies.map(({key, id, country, created_at, description, director, duration, image, nameRU, nameEN, trailerLink, year, isSaved, isShort})=> {
+          props.movies.map(({key, id, country, created_at, description, director, duration, image, movieId, nameRU, nameEN, trailerLink, year, isSaved, isShort})=> {
             let loadImage = `${notFound}`;
             if(typeof(image) === 'string'){
               loadImage = image;
@@ -154,6 +154,7 @@ function MoviesCardList(props){
             trailerLink={trailerLink} 
             isSaved={isSaved} 
             saveMovie={props.saveMovie}
+            movieId={movieId}
             />
             } else if(!props.isShortMoviesEnable){
               return <MoviesCard 
@@ -165,6 +166,7 @@ function MoviesCardList(props){
               trailerLink={trailerLink} 
               isSaved={isSaved} 
               saveMovie={props.saveMovie}
+              movieId={movieId}
               />
             }
           })

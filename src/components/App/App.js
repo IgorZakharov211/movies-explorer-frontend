@@ -25,15 +25,13 @@ function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isMoviesLoad, setMoviesLoad] = useState(false);
   const [isMoviesFound, setMoviesFound] = useState(false);
+  const [isPreloaderEnable, setPreloaderEnable] = useState(false);
   const [isSavedMoviesLoad, setSavedMoviesLoad] = useState(false);
   const [isSavedMoviesFound, setSavedMoviesFound] = useState(false);
   const [isShortMoviesEnable, setShortMoviesEnable] = useState(false);
   const [currentUser, setCurrentUser] = useState({_id: '', name: '', email: '', token: ''});
-  const [movies, setMovies] = useState([]);
   const [loadMovies, setLoadMovies] = useState([]);
   const [loadSavedMovies, setLoadSavedMovies] = useState([]);
-  const [savedMovies, setSavedMovies] = useState([]);
-  const [savedMoviesId, setSavedMoviesId] = useState([]);
   const history = useHistory();
 
   function handleLoadMovies(){
@@ -67,16 +65,64 @@ function App() {
   useEffect(() => {handleLoadMovies()}, [isLoggedIn])
   useEffect(() => {handleLoadSavedMovies()}, [isLoggedIn])
 
+
   function handleSubmitSearch(movie){
-    localStorage.removeItem('movies');
-    setMoviesFound(false);
-    setMoviesLoad(false);
+    if((localStorage.getItem('api-movies') === null) || (localStorage.getItem('saved-movies-id') === null)){
+      setPreloaderEnable(true)
+      const jwt = localStorage.getItem('token');
+      MainApi.getMovies(jwt)
+      .then((data) => {
+        const mainApiMovies = [];
+        const savedMoviesId = [];
+        data.forEach((item) => { 
+          if(currentUser._id == item.owner){
+            mainApiMovies.push({
+              id: item._id,
+              country: item.country, 
+              director: item.director,
+              duration: item.duration,
+              year: item.year,
+              description: item.description,
+              image: item.image,
+              trailerLink: item.trailer,
+              nameRU: item.nameRU,
+              nameEN: item.nameEN,
+              movieId: item.movieId,
+              isSaved: true,
+              isShort: (item.duration < 40) ? true : false
+            });
+            savedMoviesId.push(item.movieId);
+          }
+        })
+        const moviesApi = [];
+        MoviesApi.getMovies()
+        .then((data) => {
+          data.forEach((item) => {
+            moviesApi.push(item);
+          })
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          localStorage.setItem('api-movies', JSON.stringify(moviesApi));
+          localStorage.setItem('saved-movies-id', JSON.stringify(savedMoviesId));
+          localStorage.setItem('main-api-movies', JSON.stringify(mainApiMovies));
+          filterSearch(moviesApi, savedMoviesId, movie);
+        })
+      })
+      .catch((err) => console.log(err))
+    } else {
+      filterSearch(JSON.parse(localStorage.getItem('api-movies')), JSON.parse(localStorage.getItem('saved-movies-id')), movie);
+    }
+  }
+
+  function filterSearch(movies, savedMoviesId, movie){
     const resultMovies = Filter.filterMovies(movies, savedMoviesId, movie);
     localStorage.setItem('movies', JSON.stringify(resultMovies));
     if(resultMovies.length !== 0){
       setMoviesFound(true)
       setMoviesLoad(true)
       setLoadMovies(resultMovies)
+      setPreloaderEnable(false)
     } else{
       setMoviesFound(false)
       setMoviesLoad(true)
@@ -85,21 +131,61 @@ function App() {
   }
 
   function handleSubmitSavedSearch(movie){
-    localStorage.removeItem('saved-movies');
-    setSavedMoviesFound(false);
-    setSavedMoviesLoad(false);
+    if((localStorage.getItem('main-api-movies') === null) || (localStorage.getItem('saved-movies-id') === null)){
+      setPreloaderEnable(true);
+      const jwt = localStorage.getItem('token');
+      MainApi.getMovies(jwt)
+      .then((data) => {
+        const mainApiMovies = [];
+        const mainApiMoviesId = [];
+        data.forEach((item) => { 
+          if(currentUser._id == item.owner){
+            mainApiMovies.push({
+              id: item._id,
+              country: item.country, 
+              director: item.director,
+              duration: item.duration,
+              year: item.year,
+              description: item.description,
+              image: item.image,
+              trailerLink: item.trailer,
+              nameRU: item.nameRU,
+              nameEN: item.nameEN,
+              movieId: item.movieId,
+              isSaved: true,
+              isShort: (item.duration < 40) ? true : false
+            });
+            mainApiMoviesId.push(item.movieId);
+          }
+        })
+        localStorage.setItem('main-api-movies', JSON.stringify(mainApiMovies));
+        localStorage.setItem('saved-movies-id', JSON.stringify(mainApiMoviesId));
+        filterSavedSearch(mainApiMovies, mainApiMoviesId, movie);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setPreloaderEnable(false)
+      })
+    } else {
+      filterSavedSearch(JSON.parse(localStorage.getItem('main-api-movies')), JSON.parse(localStorage.getItem('saved-movies-id')), movie);
+    }
+  }
+
+  function filterSavedSearch(savedMovies, savedMoviesId, movie){
     const resultMovies = Filter.filterMovies(savedMovies, savedMoviesId, movie);
     localStorage.setItem('saved-movies', JSON.stringify(resultMovies));
     if(resultMovies.length !== 0){
       setSavedMoviesFound(true)
       setSavedMoviesLoad(true)
       setLoadSavedMovies(resultMovies)
+      setPreloaderEnable(false)
     } else{
       setSavedMoviesFound(false)
       setSavedMoviesLoad(true)
       setLoadSavedMovies([])
     }
   }
+
 
   function handleFilterShortMovies(enable){
     setShortMoviesEnable(!enable);
@@ -112,47 +198,13 @@ function App() {
       .then((res)=>{
         const { _id, name, email } = res.data;
         setCurrentUser({ _id: _id, name: name, email: email, token: jwt })
-        MoviesApi.getMovies()
-        .then((data) => {
-          setMovies(data);
-          const resultGetMovies = [];
-          MainApi.getMovies(jwt).then((data) =>{
-            const resultMoviesData = [];
-          data.forEach((item) => { 
-            if(res.data._id === item.owner){
-              resultMoviesData.push({
-                id: item.movieId,
-                country: item.country, 
-                director: item.director,
-                duration: item.duration,
-                year: item.year,
-                description: item.description,
-                image: item.image,
-                trailerLink: item.trailer,
-                nameRU: item.nameRU,
-                nameEN: item.nameEN,
-                isSaved: true,
-                isShort: (item.duration < 40) ? true : false
-              });
-              resultGetMovies.push(item.movieId);
-            }
-          })
-          console.log(resultMoviesData)
-          setSavedMovies(resultMoviesData)
-          })
-          .catch((err) => console.log(err))
-          .finally(() => {
-            setSavedMoviesId(resultGetMovies)
-            setLoggedIn(true);
-            history.push('/movies');
-        })
-        })
-        .catch((err) => {
-          console.log(err)
-        })
       })
       .catch((err) => {
       console.log(err)
+      })
+      .finally(() => {
+        setLoggedIn(true);
+        history.push('/movies');
       })
     }
   }
@@ -213,7 +265,6 @@ function App() {
     function handleUpdateUser(name, email){
       setRenderSubmit(true);
       MainApi.patchMyInfo(name, email, currentUser.token).then((res) => {
-        console.log(res)
         const { _id, name, email} = res.data;
         setCurrentUser({_id: _id, name: name, email: email, token: currentUser.token});
         setRenderSubmit(false)
@@ -227,11 +278,11 @@ function App() {
       localStorage.removeItem('token');
       localStorage.removeItem('movies');
       localStorage.removeItem('saved-movies');
+      localStorage.removeItem('api-movies');
+      localStorage.removeItem('main-api-movies');
+      localStorage.removeItem('saved-movies-id');
       setCurrentUser({_id: '', name: '', email: '', token: ''});
       setLoggedIn(false);
-      setMovies([]);
-      setSavedMovies([]);
-      setSavedMoviesId([]);
       setLoadMovies([]);
       setLoadSavedMovies([]);
       setMoviesLoad(false);
@@ -256,6 +307,23 @@ function App() {
         movie.nameEN
       )
       .then((res) => {
+        const newSavedMovies = JSON.parse(localStorage.getItem('main-api-movies'));
+        newSavedMovies.push({
+          id: res.data._id,
+          country: res.data.country,
+          description: res.data.description,
+          director: res.data.director,
+          duration: res.data.duration,
+          image: res.data.image,
+          isSaved: true,
+          isShort: (res.data.duration < 40) ? true: false,
+          movieId: res.data.movieId,
+          nameEN: res.data.nameEN,
+          nameRU: res.data.nameRU,
+          trailerLink: res.data.trailer,
+          year: res.data.year
+        })
+        localStorage.setItem('main-api-movies', JSON.stringify(newSavedMovies));
         changeMovie(movie);
       })
       .catch((err) => {
@@ -278,6 +346,7 @@ function App() {
               trailerLink: movie.trailerLink,
               nameRU: movie.nameRU,
               nameEN: movie.nameEN,
+              movieId: movie.id,
               isSaved: true,
               isShort: movie.isShort
             }
@@ -293,6 +362,7 @@ function App() {
               trailerLink: movie.trailerLink,
               nameRU: movie.nameRU,
               nameEN: movie.nameEN,
+              movieId: movie.id,
               isSaved: false,
               isShort: movie.isShort
           }
@@ -300,34 +370,42 @@ function App() {
       } else{
         return c
       }})
+      let savedMoviesId = [];
+      if(JSON.parse(localStorage.getItem('saved-movies-id')).includes(String(movie.id))){
+        savedMoviesId = JSON.parse(localStorage.getItem('saved-movies-id')).filter(item => {return Number(item) !== Number(movie.id)})
+      } else{
+        savedMoviesId = JSON.parse(localStorage.getItem('saved-movies-id'));
+        savedMoviesId.push(String(movie.id));
+      }
       setLoadMovies(newMovies);
       const newSavedMovies = loadSavedMovies.filter((item) => {
-        if(Number(movie.id) !== Number(item.id)){
-          return item
-        }
-      })
-      setLoadSavedMovies(newSavedMovies)
+        return Number(item.movieId) !== Number(movie.id)
+      });
+      setLoadSavedMovies(newSavedMovies);
+      localStorage.setItem('saved-movies-id', JSON.stringify(savedMoviesId));
       localStorage.setItem('movies', JSON.stringify(newMovies));
+      setLoadMovies(newMovies);
+      setLoadSavedMovies(newSavedMovies);
       localStorage.setItem('saved-movies', JSON.stringify(newSavedMovies));
     }
 
     function handleDeleteMovie(movie){
+      const movieId = JSON.parse(localStorage.getItem('main-api-movies')).filter((item) =>{
+        return Number(item.movieId) == Number(movie.id)
+      });
       const jwt = localStorage.getItem('token');
-      MainApi.getMovies(jwt).then((data) => {
-        data.forEach((item) => {
-          if(Number(item.movieId) === Number(movie.id)){
-            MainApi.deleteMovie(jwt, item._id)
-            .then((res) => {
-              changeMovie(movie);
-            })
-            .catch((err) => console.log(err))
-          }
-        })
+      MainApi.deleteMovie(jwt, movieId[0].id)
+      .then((res) => {
+        const newSavedMovies = JSON.parse(localStorage.getItem('main-api-movies')).filter((item) => {
+          return Number(item.movieId) !== Number(movie.id)
+        });
+        localStorage.setItem('main-api-movies', JSON.stringify(newSavedMovies));
+        changeMovie(movie);
       })
+      .catch((err) => console.log(err))
     }
 
-    function handleSaveMovie(e){
-      const movieId = e.target.parentElement.parentElement.id;
+    function handleSaveMovie(movieId){
       loadMovies.map((item) => {
         if(Number(item.id) === Number(movieId)){
           if(item.isSaved === false){
@@ -367,6 +445,7 @@ function App() {
           isMoviesFound={isMoviesFound}
           shortMovies={handleFilterShortMovies}
           isShortMoviesEnable={isShortMoviesEnable}
+          isPreloaderEnable={isPreloaderEnable}
           />
           <ProtectedRoute
           path="/saved-movies"
@@ -380,6 +459,7 @@ function App() {
           saveMovie={handleSaveMovie} 
           isShortMoviesEnable={isShortMoviesEnable}
           shortMovies={handleFilterShortMovies}
+          isPreloaderEnable={isPreloaderEnable}
           />
           <ProtectedRoute
           path="/profile"

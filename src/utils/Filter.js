@@ -7,6 +7,7 @@ export const filterMovies = (movies, savedMoviesId, filter) => {
     director: (item.director !== null) ? item.director : 'Не указано',
     duration: (item.duration !== null) ? item.duration : 60,
     image: (item.image !== null) ? item.image : 'https://image.freepik.com/free-vector/error-404-page-not-found-oops-trouble-internet-warning-design_175838-592.jpg',
+    movieId: (item.movieId !== undefined) ? item.movieId : item.id,
     nameRU: (item.nameRU !== null) ? item.nameRU : 'Не указано',
     nameEN: (item.nameEN !== null) ? item.nameEN : 'Не указано',
     trailerLink: (item.trailerLink !== null) ? item.trailerLink : 'https://www.youtube.com/',
