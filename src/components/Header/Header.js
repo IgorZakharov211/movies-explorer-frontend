@@ -12,16 +12,16 @@ function Header(props) {
       <Link to="/"><img src={headerLogo} alt="Логотип" className="header__logo" /></Link>
       <Switch>
         <Route exact path="/">
-          <NavTab />
+          {(props.isLoggedIn) ? <Navigation onBurgerButton={ props.onBurgerButton } lightTheme={ true }/> : <NavTab /> }
         </Route>
         <Route path="/movies">
-          <Navigation onBurgerButton={props.onBurgerButton} />
+          <Navigation onBurgerButton={props.onBurgerButton}/>
         </Route>
         <Route path="/saved-movies">
-          <Navigation onBurgerButton={props.onBurgerButton} />
+          <Navigation onBurgerButton={props.onBurgerButton}/>
         </Route>
         <Route path="/profile">
-          <Navigation onBurgerButton={props.onBurgerButton} />
+          <Navigation onBurgerButton={props.onBurgerButton}/>
         </Route>
       </Switch>
     </header>

@@ -2,7 +2,6 @@
   border: none;
   background: none;
   margin-right: 30px;
-  color: #ffffff;
   cursor: pointer;
   text-decoration: none;
   color: #000000;
@@ -10,6 +9,10 @@
   font-weight: 400;
   line-height: 1.29;
   transition: opacity .3s ease-in;
+}
+
+.navigation__nav-link_color_white{
+  color: #ffffff;
 }
 
 .navigation__nav-link:hover{
@@ -30,6 +33,12 @@
   cursor: pointer;
   outline: none;
   transition: opacity .3s ease-in;
+}
+
+.navigation__profile_color_green{
+  font-weight: 500;
+  border: none;
+  background-color: #2BE080;
 }
 
 .navigation__profile:hover{

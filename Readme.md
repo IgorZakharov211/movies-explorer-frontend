@@ -26,7 +26,11 @@ Frontend часть дипломного проекта movies-explorer
 * Все остальные роуты закрыты страницей NotFound(404).
 
 
-## Планы по доработке: 
+## Ссылка на проект: 
 
-* Реализация основного функционала на React.
+*https://movies-explorer.zakharov.students.nomoredomains.rocks/*
+
+## Публичный ip:
+*130.193.36.73*
+
 

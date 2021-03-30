@@ -1,57 +1,178 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
-import card1 from '../../images/movies-cards/card1.jpg';
-import card2 from '../../images/movies-cards/card2.jpg';
-import card3 from '../../images/movies-cards/card3.jpg';
-import card4 from '../../images/movies-cards/card4.jpg';
-import card5 from '../../images/movies-cards/card5.jpg';
-import card6 from '../../images/movies-cards/card6.jpg';
-import card7 from '../../images/movies-cards/card7.jpg';
-import card8 from '../../images/movies-cards/card8.jpg';
-import card9 from '../../images/movies-cards/card9.jpg';
-import card10 from '../../images/movies-cards/card10.jpg';
-import card11 from '../../images/movies-cards/card11.jpg';
-import card12 from '../../images/movies-cards/card12.jpg';
-import card13 from '../../images/movies-cards/card13.jpg';
-import card14 from '../../images/movies-cards/card14.jpg';
-import card15 from '../../images/movies-cards/card15.jpg';
-import card16 from '../../images/movies-cards/card16.jpg';
+import { IMAGE_URL } from '../../utils/config';
+import notFound from '../../images/no-image.jpg';
 
 function MoviesCardList(props){
+  const [moviesCount, setMoviesCount] = useState(0);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const moviesContainer = document.querySelector('.movies-card-list__container');
+  let clickCount = 0;
+  let moviesShow = 0;
+
+  function setCounts(){
+    if(moviesContainer !== null){
+      setMoviesCount(moviesContainer.childElementCount);
+      if(windowWidth > 1280){
+        moviesContainer.style.maxHeight = `1000px`;
+      } else if(windowWidth <= 1280 && windowWidth > 1100){
+        moviesContainer.style.maxHeight = `1156px`;
+      } else if(windowWidth <= 1100 && windowWidth > 906){
+        moviesContainer.style.maxHeight = `1000px`;
+      } else if(windowWidth <= 906 && windowWidth > 760){
+        moviesContainer.style.maxHeight = `1172px`;
+      } else if(windowWidth <= 760 && windowWidth > 610){
+        moviesContainer.style.maxHeight = `1016px`;
+      } else if(windowWidth <= 610 && windowWidth > 320){
+        moviesContainer.style.maxHeight = `1465px`;
+      } else if(windowWidth <= 320){
+        moviesContainer.style.maxHeight = `1275px`;
+      }
+    }
+    setWindowWidth(window.screen.width);
+  }
+  setTimeout(setCounts, 100);
+
+  function setWindowSize(){
+    setWindowWidth(window.screen.width);
+  }
+
+  window.addEventListener('resize', setWindowSize)
+  setTimeout(setWindowSize, 10000);
+
+  let disabledButton = (
+    (moviesCount <= 16 && windowWidth > 1280) || 
+    (moviesCount <= 12 && (windowWidth <= 1280 && windowWidth > 906)) ||
+    (moviesCount <= 8 && (windowWidth <= 906 && windowWidth > 610)) ||
+    (moviesCount <= 5 && windowWidth <= 610)
+    ) ? 'movies-card-list__more_disabled' : '';
+
+  function handleMoreButton(){
+    document.querySelector('.movies-card-list__more').classList.remove('movies-card-list__more_disabled');
+    let step = 0;
+    clickCount = clickCount + 1;
+    if(windowWidth > 1280){
+      step = 250 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1000+step}px`;
+        moviesShow = 16 + clickCount*4;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    } else if(windowWidth <= 1280 && windowWidth > 1100){
+      step = 289 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1156+step}px`;
+        moviesShow = 12 + clickCount*3;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    } else if(windowWidth <= 1100 && windowWidth > 906){
+      step = 250 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1000+step}px`;
+        moviesShow = 12 + clickCount*3;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    } else if(windowWidth <= 906 && windowWidth > 760){
+      step = 293 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1172+step}px`;
+        moviesShow = 8 + clickCount*2;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    } else if(windowWidth <= 760 && windowWidth > 610){
+      step = 254 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1016+step}px`;
+        moviesShow = 8 + clickCount*2;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    } else if(windowWidth <= 610 && windowWidth > 320){
+      step = 293 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1465+step}px`;
+        moviesShow = 5 + clickCount;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    } else if(windowWidth <= 320){
+      step = 255 * clickCount;
+      if(moviesShow < moviesCount){
+        moviesContainer.style.maxHeight = `${1275+step}px`;
+        moviesShow = 5 + clickCount;
+      } else{
+        document.querySelector('.movies-card-list__more').classList.add('movies-card-list__more_disabled');
+        clickCount = 0;
+      }
+    }
+  }
+
   return(
     <section className={`movies-card-list ${props.whereOpen}__movies-card-list`}>
-        <Switch>
-          <Route path="/movies">
-            <div className="movies-card-list__container">
-              <MoviesCard image={card1} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card2} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card3} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card4} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card5} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card6} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card7} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card8} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card9} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card10} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card11} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card12} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card13} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card14} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card15} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card16} name="33 слова о дизайне" duration="1ч42м"/>
-            </div>
-            <button className="movies-card-list__more" type="button">Ещё</button>
-          </Route>
-          <Route path="/saved-movies">
-            <div className="movies-card-list__container">
-              <MoviesCard image={card1} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card2} name="33 слова о дизайне" duration="1ч42м"/>
-              <MoviesCard image={card3} name="33 слова о дизайне" duration="1ч42м"/>
-            </div>
-          </Route>
-        </Switch>
+      <div className="movies-card-list__container">
+        { 
+        props.movies &&
+          props.movies.map(({key, id, country, created_at, description, director, duration, image, movieId, nameRU, nameEN, trailerLink, year, isSaved, isShort})=> {
+            let loadImage = `${notFound}`;
+            if(typeof(image) === 'string'){
+              loadImage = image;
+            } else if (typeof(image) === 'object'){
+              if(image !== null) {
+                loadImage = `${IMAGE_URL}${image.url}`
+              }
+            }
+            
+            let time = duration;
+            let hours = Math.floor(time / 60);
+            let minutes = Math.floor(time % 60);
+            if(hours && minutes){
+              time = `${hours}ч${minutes}м`;
+            } else if(hours){
+              time = `${hours}ч`;
+            } else{
+              time = `${minutes}м`;
+            } 
+            if(props.isShortMoviesEnable && isShort){
+              return <MoviesCard 
+            key={id} 
+            id={id} 
+            image={loadImage} 
+            name={nameRU} 
+            duration={time} 
+            trailerLink={trailerLink} 
+            isSaved={isSaved} 
+            saveMovie={props.saveMovie}
+            movieId={movieId}
+            />
+            } else if(!props.isShortMoviesEnable){
+              return <MoviesCard 
+              key={id} 
+              id={id} 
+              image={loadImage} 
+              name={nameRU} 
+              duration={time} 
+              trailerLink={trailerLink} 
+              isSaved={isSaved} 
+              saveMovie={props.saveMovie}
+              movieId={movieId}
+              />
+            }
+          })
+        }
+      </div>
+      <button className={`movies-card-list__more ${disabledButton}`} type="button" onClick={handleMoreButton}>Ещё</button>
     </section>
   )
 }
