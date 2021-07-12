@@ -49,6 +49,7 @@ function App() {
     }
   }
 
+   
   function handleLoadSavedMovies(){
     if(localStorage.getItem('saved-movies') !== null ){
       if(JSON.parse(localStorage.getItem('saved-movies')).length == 0){
