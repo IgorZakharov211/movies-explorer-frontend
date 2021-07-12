@@ -28,9 +28,7 @@ Frontend часть дипломного проекта movies-explorer
 
 ## Ссылка на проект: 
 
-*https://movies-explorer.zakharov.students.nomoredomains.rocks/*
+*https://zakharovigor.ru/*
 
-## Публичный ip:
-*130.193.36.73*
 
 
