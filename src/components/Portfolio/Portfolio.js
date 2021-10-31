@@ -19,8 +19,8 @@ function Portfolio() {
           </a>
         </li>
         <li className="portfolio__item">
-          <a className="portfolio__link" href="https://igorzakharov.mesto.students.nomoredomains.rocks/">
-          Одностраничное приложение
+          <a className="portfolio__link" href="https://igorzakharov211.github.io/creation-landing/">
+          Адаптивный, одностраничный сайт "Создание"
             <p className="portfolio__arrow">↗</p>
           </a>
         </li>
